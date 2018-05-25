@@ -1,0 +1,18 @@
+<%--
+  Created by IntelliJ IDEA.
+  User: hemanta
+  Date: 5/21/18
+  Time: 1:52 PM
+--%>
+
+<%@ page contentType="text/html;charset=UTF-8" %>
+<html>
+<head>
+    <meta name="layout" content="mainLayout">
+    <title></title>
+</head>
+
+<body>
+
+</body>
+</html>
