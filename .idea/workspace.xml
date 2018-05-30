@@ -2,76 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="41cc259c-2324-40c9-8d39-09a472929e36" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/grails-app/views/materials/create.gsp" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/application.properties" afterPath="$PROJECT_DIR$/application.properties" />
-      <change beforePath="$PROJECT_DIR$/grails-app/controllers/MaterialsController.groovy" afterPath="$PROJECT_DIR$/grails-app/controllers/MaterialsController.groovy" />
-      <change beforePath="$PROJECT_DIR$/grails-app/views/layouts/mainLayout.gsp" afterPath="$PROJECT_DIR$/grails-app/views/layouts/mainLayout.gsp" />
-      <change beforePath="$PROJECT_DIR$/target/classes/HomeController.class" afterPath="$PROJECT_DIR$/target/classes/HomeController.class" />
-      <change beforePath="$PROJECT_DIR$/target/classes/application.properties" afterPath="$PROJECT_DIR$/target/classes/application.properties" />
-      <change beforePath="$PROJECT_DIR$/target/classes/stockmanagement/HomeController.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/stacktrace.log" afterPath="$PROJECT_DIR$/target/stacktrace.log" />
-      <change beforePath="$PROJECT_DIR$/target/work/plugin-classes/JQueryResourceTagLib.class" afterPath="$PROJECT_DIR$/target/work/plugin-classes/JQueryResourceTagLib.class" />
-      <change beforePath="$PROJECT_DIR$/target/work/plugin-classes/JQueryTagLib.class" afterPath="$PROJECT_DIR$/target/work/plugin-classes/JQueryTagLib.class" />
-      <change beforePath="$PROJECT_DIR$/target/work/plugin-classes/asset/pipeline/grails/AssetMethodTagLib.class" afterPath="$PROJECT_DIR$/target/work/plugin-classes/asset/pipeline/grails/AssetMethodTagLib.class" />
-      <change beforePath="$PROJECT_DIR$/target/work/plugin-classes/asset/pipeline/grails/AssetsTagLib.class" afterPath="$PROJECT_DIR$/target/work/plugin-classes/asset/pipeline/grails/AssetsTagLib.class" />
-      <change beforePath="$PROJECT_DIR$/target/work/plugin-classes/grails/plugin/cache/CacheTagLib.class" afterPath="$PROJECT_DIR$/target/work/plugin-classes/grails/plugin/cache/CacheTagLib.class" />
-      <change beforePath="$PROJECT_DIR$/target/work/plugin-classes/grails/plugin/databasemigration/DbdocController.class" afterPath="$PROJECT_DIR$/target/work/plugin-classes/grails/plugin/databasemigration/DbdocController.class" />
-      <change beforePath="$PROJECT_DIR$/target/work/plugins/database-migration-1.4.0/LICENSE.txt" afterPath="$PROJECT_DIR$/target/work/plugins/database-migration-1.4.0/LICENSE.txt" />
-      <change beforePath="$PROJECT_DIR$/target/work/plugins/database-migration-1.4.0/grails-app/views/dbdoc/_globalnav.gsp" afterPath="$PROJECT_DIR$/target/work/plugins/database-migration-1.4.0/grails-app/views/dbdoc/_globalnav.gsp" />
-      <change beforePath="$PROJECT_DIR$/target/work/plugins/database-migration-1.4.0/grails-app/views/dbdoc/_index.gsp" afterPath="$PROJECT_DIR$/target/work/plugins/database-migration-1.4.0/grails-app/views/dbdoc/_index.gsp" />
-      <change beforePath="$PROJECT_DIR$/target/work/plugins/database-migration-1.4.0/grails-app/views/dbdoc/_overview-summary.gsp" afterPath="$PROJECT_DIR$/target/work/plugins/database-migration-1.4.0/grails-app/views/dbdoc/_overview-summary.gsp" />
-      <change beforePath="$PROJECT_DIR$/target/work/plugins/database-migration-1.4.0/grails-app/views/dbdoc/_stylesheet.gsp" afterPath="$PROJECT_DIR$/target/work/plugins/database-migration-1.4.0/grails-app/views/dbdoc/_stylesheet.gsp" />
-      <change beforePath="$PROJECT_DIR$/target/work/plugins/database-migration-1.4.0/scripts/DbmChangelogSync.groovy" afterPath="$PROJECT_DIR$/target/work/plugins/database-migration-1.4.0/scripts/DbmChangelogSync.groovy" />
-      <change beforePath="$PROJECT_DIR$/target/work/plugins/database-migration-1.4.0/scripts/DbmChangelogSyncSql.groovy" afterPath="$PROJECT_DIR$/target/work/plugins/database-migration-1.4.0/scripts/DbmChangelogSyncSql.groovy" />
-      <change beforePath="$PROJECT_DIR$/target/work/plugins/database-migration-1.4.0/scripts/DbmClearChecksums.groovy" afterPath="$PROJECT_DIR$/target/work/plugins/database-migration-1.4.0/scripts/DbmClearChecksums.groovy" />
-      <change beforePath="$PROJECT_DIR$/target/work/plugins/database-migration-1.4.0/scripts/DbmCreateChangelog.groovy" afterPath="$PROJECT_DIR$/target/work/plugins/database-migration-1.4.0/scripts/DbmCreateChangelog.groovy" />
-      <change beforePath="$PROJECT_DIR$/target/work/plugins/database-migration-1.4.0/scripts/DbmDbDoc.groovy" afterPath="$PROJECT_DIR$/target/work/plugins/database-migration-1.4.0/scripts/DbmDbDoc.groovy" />
-      <change beforePath="$PROJECT_DIR$/target/work/plugins/database-migration-1.4.0/scripts/DbmDropAll.groovy" afterPath="$PROJECT_DIR$/target/work/plugins/database-migration-1.4.0/scripts/DbmDropAll.groovy" />
-      <change beforePath="$PROJECT_DIR$/target/work/plugins/database-migration-1.4.0/scripts/DbmFutureRollbackSql.groovy" afterPath="$PROJECT_DIR$/target/work/plugins/database-migration-1.4.0/scripts/DbmFutureRollbackSql.groovy" />
-      <change beforePath="$PROJECT_DIR$/target/work/plugins/database-migration-1.4.0/scripts/DbmGenerateChangelog.groovy" afterPath="$PROJECT_DIR$/target/work/plugins/database-migration-1.4.0/scripts/DbmGenerateChangelog.groovy" />
-      <change beforePath="$PROJECT_DIR$/target/work/plugins/database-migration-1.4.0/scripts/DbmGenerateGormChangelog.groovy" afterPath="$PROJECT_DIR$/target/work/plugins/database-migration-1.4.0/scripts/DbmGenerateGormChangelog.groovy" />
-      <change beforePath="$PROJECT_DIR$/target/work/plugins/database-migration-1.4.0/scripts/DbmGormDiff.groovy" afterPath="$PROJECT_DIR$/target/work/plugins/database-migration-1.4.0/scripts/DbmGormDiff.groovy" />
-      <change beforePath="$PROJECT_DIR$/target/work/plugins/database-migration-1.4.0/scripts/DbmListLocks.groovy" afterPath="$PROJECT_DIR$/target/work/plugins/database-migration-1.4.0/scripts/DbmListLocks.groovy" />
-      <change beforePath="$PROJECT_DIR$/target/work/plugins/database-migration-1.4.0/scripts/DbmListTags.groovy" afterPath="$PROJECT_DIR$/target/work/plugins/database-migration-1.4.0/scripts/DbmListTags.groovy" />
-      <change beforePath="$PROJECT_DIR$/target/work/plugins/database-migration-1.4.0/scripts/DbmMarkNextChangesetRan.groovy" afterPath="$PROJECT_DIR$/target/work/plugins/database-migration-1.4.0/scripts/DbmMarkNextChangesetRan.groovy" />
-      <change beforePath="$PROJECT_DIR$/target/work/plugins/database-migration-1.4.0/scripts/DbmPreviousChangesetSql.groovy" afterPath="$PROJECT_DIR$/target/work/plugins/database-migration-1.4.0/scripts/DbmPreviousChangesetSql.groovy" />
-      <change beforePath="$PROJECT_DIR$/target/work/plugins/database-migration-1.4.0/scripts/DbmRegisterChangelog.groovy" afterPath="$PROJECT_DIR$/target/work/plugins/database-migration-1.4.0/scripts/DbmRegisterChangelog.groovy" />
-      <change beforePath="$PROJECT_DIR$/target/work/plugins/database-migration-1.4.0/scripts/DbmReleaseLocks.groovy" afterPath="$PROJECT_DIR$/target/work/plugins/database-migration-1.4.0/scripts/DbmReleaseLocks.groovy" />
-      <change beforePath="$PROJECT_DIR$/target/work/plugins/database-migration-1.4.0/scripts/DbmRollback.groovy" afterPath="$PROJECT_DIR$/target/work/plugins/database-migration-1.4.0/scripts/DbmRollback.groovy" />
-      <change beforePath="$PROJECT_DIR$/target/work/plugins/database-migration-1.4.0/scripts/DbmRollbackCount.groovy" afterPath="$PROJECT_DIR$/target/work/plugins/database-migration-1.4.0/scripts/DbmRollbackCount.groovy" />
-      <change beforePath="$PROJECT_DIR$/target/work/plugins/database-migration-1.4.0/scripts/DbmRollbackCountSql.groovy" afterPath="$PROJECT_DIR$/target/work/plugins/database-migration-1.4.0/scripts/DbmRollbackCountSql.groovy" />
-      <change beforePath="$PROJECT_DIR$/target/work/plugins/database-migration-1.4.0/scripts/DbmRollbackSql.groovy" afterPath="$PROJECT_DIR$/target/work/plugins/database-migration-1.4.0/scripts/DbmRollbackSql.groovy" />
-      <change beforePath="$PROJECT_DIR$/target/work/plugins/database-migration-1.4.0/scripts/DbmRollbackToDate.groovy" afterPath="$PROJECT_DIR$/target/work/plugins/database-migration-1.4.0/scripts/DbmRollbackToDate.groovy" />
-      <change beforePath="$PROJECT_DIR$/target/work/plugins/database-migration-1.4.0/scripts/DbmRollbackToDateSql.groovy" afterPath="$PROJECT_DIR$/target/work/plugins/database-migration-1.4.0/scripts/DbmRollbackToDateSql.groovy" />
-      <change beforePath="$PROJECT_DIR$/target/work/plugins/database-migration-1.4.0/scripts/DbmStatus.groovy" afterPath="$PROJECT_DIR$/target/work/plugins/database-migration-1.4.0/scripts/DbmStatus.groovy" />
-      <change beforePath="$PROJECT_DIR$/target/work/plugins/database-migration-1.4.0/scripts/DbmTag.groovy" afterPath="$PROJECT_DIR$/target/work/plugins/database-migration-1.4.0/scripts/DbmTag.groovy" />
-      <change beforePath="$PROJECT_DIR$/target/work/plugins/database-migration-1.4.0/scripts/DbmUpdate.groovy" afterPath="$PROJECT_DIR$/target/work/plugins/database-migration-1.4.0/scripts/DbmUpdate.groovy" />
-      <change beforePath="$PROJECT_DIR$/target/work/plugins/database-migration-1.4.0/scripts/DbmUpdateCount.groovy" afterPath="$PROJECT_DIR$/target/work/plugins/database-migration-1.4.0/scripts/DbmUpdateCount.groovy" />
-      <change beforePath="$PROJECT_DIR$/target/work/plugins/database-migration-1.4.0/scripts/DbmUpdateCountSql.groovy" afterPath="$PROJECT_DIR$/target/work/plugins/database-migration-1.4.0/scripts/DbmUpdateCountSql.groovy" />
-      <change beforePath="$PROJECT_DIR$/target/work/plugins/database-migration-1.4.0/scripts/DbmUpdateSql.groovy" afterPath="$PROJECT_DIR$/target/work/plugins/database-migration-1.4.0/scripts/DbmUpdateSql.groovy" />
-      <change beforePath="$PROJECT_DIR$/target/work/plugins/database-migration-1.4.0/scripts/DbmValidate.groovy" afterPath="$PROJECT_DIR$/target/work/plugins/database-migration-1.4.0/scripts/DbmValidate.groovy" />
-      <change beforePath="$PROJECT_DIR$/target/work/plugins/database-migration-1.4.0/src/groovy/grails/plugin/databasemigration/dbdoc/AuthorListWriter.groovy" afterPath="$PROJECT_DIR$/target/work/plugins/database-migration-1.4.0/src/groovy/grails/plugin/databasemigration/dbdoc/AuthorListWriter.groovy" />
-      <change beforePath="$PROJECT_DIR$/target/work/plugins/database-migration-1.4.0/src/groovy/grails/plugin/databasemigration/dbdoc/AuthorWriter.groovy" afterPath="$PROJECT_DIR$/target/work/plugins/database-migration-1.4.0/src/groovy/grails/plugin/databasemigration/dbdoc/AuthorWriter.groovy" />
-      <change beforePath="$PROJECT_DIR$/target/work/plugins/database-migration-1.4.0/src/groovy/grails/plugin/databasemigration/dbdoc/ChangeLogListWriter.groovy" afterPath="$PROJECT_DIR$/target/work/plugins/database-migration-1.4.0/src/groovy/grails/plugin/databasemigration/dbdoc/ChangeLogListWriter.groovy" />
-      <change beforePath="$PROJECT_DIR$/target/work/plugins/database-migration-1.4.0/src/groovy/grails/plugin/databasemigration/dbdoc/ChangeLogWriter.groovy" afterPath="$PROJECT_DIR$/target/work/plugins/database-migration-1.4.0/src/groovy/grails/plugin/databasemigration/dbdoc/ChangeLogWriter.groovy" />
-      <change beforePath="$PROJECT_DIR$/target/work/plugins/database-migration-1.4.0/src/groovy/grails/plugin/databasemigration/dbdoc/ColumnWriter.groovy" afterPath="$PROJECT_DIR$/target/work/plugins/database-migration-1.4.0/src/groovy/grails/plugin/databasemigration/dbdoc/ColumnWriter.groovy" />
-      <change beforePath="$PROJECT_DIR$/target/work/plugins/database-migration-1.4.0/src/groovy/grails/plugin/databasemigration/dbdoc/HTMLListWriter.groovy" afterPath="$PROJECT_DIR$/target/work/plugins/database-migration-1.4.0/src/groovy/grails/plugin/databasemigration/dbdoc/HTMLListWriter.groovy" />
-      <change beforePath="$PROJECT_DIR$/target/work/plugins/database-migration-1.4.0/src/groovy/grails/plugin/databasemigration/dbdoc/HTMLWriter.groovy" afterPath="$PROJECT_DIR$/target/work/plugins/database-migration-1.4.0/src/groovy/grails/plugin/databasemigration/dbdoc/HTMLWriter.groovy" />
-      <change beforePath="$PROJECT_DIR$/target/work/plugins/database-migration-1.4.0/src/groovy/grails/plugin/databasemigration/dbdoc/PendingChangesWriter.groovy" afterPath="$PROJECT_DIR$/target/work/plugins/database-migration-1.4.0/src/groovy/grails/plugin/databasemigration/dbdoc/PendingChangesWriter.groovy" />
-      <change beforePath="$PROJECT_DIR$/target/work/plugins/database-migration-1.4.0/src/groovy/grails/plugin/databasemigration/dbdoc/PendingSQLWriter.groovy" afterPath="$PROJECT_DIR$/target/work/plugins/database-migration-1.4.0/src/groovy/grails/plugin/databasemigration/dbdoc/PendingSQLWriter.groovy" />
-      <change beforePath="$PROJECT_DIR$/target/work/plugins/database-migration-1.4.0/src/groovy/grails/plugin/databasemigration/dbdoc/RecentChangesWriter.groovy" afterPath="$PROJECT_DIR$/target/work/plugins/database-migration-1.4.0/src/groovy/grails/plugin/databasemigration/dbdoc/RecentChangesWriter.groovy" />
-      <change beforePath="$PROJECT_DIR$/target/work/plugins/database-migration-1.4.0/src/groovy/grails/plugin/databasemigration/dbdoc/TableListWriter.groovy" afterPath="$PROJECT_DIR$/target/work/plugins/database-migration-1.4.0/src/groovy/grails/plugin/databasemigration/dbdoc/TableListWriter.groovy" />
-      <change beforePath="$PROJECT_DIR$/target/work/plugins/database-migration-1.4.0/src/groovy/grails/plugin/databasemigration/dbdoc/TableWriter.groovy" afterPath="$PROJECT_DIR$/target/work/plugins/database-migration-1.4.0/src/groovy/grails/plugin/databasemigration/dbdoc/TableWriter.groovy" />
-      <change beforePath="$PROJECT_DIR$/target/work/plugins/webxml-1.4.1/LICENSE.txt" afterPath="$PROJECT_DIR$/target/work/plugins/webxml-1.4.1/LICENSE.txt" />
-      <change beforePath="$PROJECT_DIR$/target/work/plugins/webxml-1.4.1/grails-app/conf/DefaultWebXmlConfig.groovy" afterPath="$PROJECT_DIR$/target/work/plugins/webxml-1.4.1/grails-app/conf/DefaultWebXmlConfig.groovy" />
-      <change beforePath="$PROJECT_DIR$/target/work/plugins/webxml-1.4.1/src/samples/_WebXmlConfig.groovy" afterPath="$PROJECT_DIR$/target/work/plugins/webxml-1.4.1/src/samples/_WebXmlConfig.groovy" />
-      <change beforePath="$PROJECT_DIR$/target/work/resources/web.xml" afterPath="$PROJECT_DIR$/target/work/resources/web.xml" />
-      <change beforePath="$PROJECT_DIR$/target/work/scriptCache/IdeaPrintProjectSettings$_run_closure1.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/work/scriptCache/IdeaPrintProjectSettings.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/work/scriptCache/LinkedProperties.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/work/scriptCache/ListEnumeration.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/work/web.xml.tmp" afterPath="$PROJECT_DIR$/target/work/web.xml.tmp" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$USER_HOME$/.grails/" />
@@ -448,12 +379,20 @@
       <workItem from="1527002001052" duration="50000" />
       <workItem from="1527683834885" duration="1497000" />
       <workItem from="1527705177537" duration="2729000" />
-      <workItem from="1527709012887" duration="1797000" />
+      <workItem from="1527709012887" duration="1886000" />
     </task>
+    <task id="LOCAL-00001" summary="yes">
+      <created>1527710941208</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1527710941208</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="16945000" />
+    <option name="totallyTimeSpent" value="17034000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="65" y="24" width="1303" height="780" extended-state="6" />
@@ -497,6 +436,10 @@
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="yes" />
+    <option name="LAST_COMMIT_MESSAGE" value="yes" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
