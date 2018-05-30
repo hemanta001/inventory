@@ -33,11 +33,11 @@
                                 %{--<p>Add class <code>bulk_action</code> to table for bulk actions options on row select</p>--}%
 
                                 <div class="table-responsive">
-                                    <table class="table table-striped jambo_table bulk_action">
+                                    <table class="table table-striped jambo_table">
                                         <thead>
                                         <tr class="headings">
                                             <th>
-                                                <input type="checkbox" id="check-all" class="flat">
+                                                S.N.
                                             </th>
                                             <th class="column-title">Material Name </th>
 
@@ -48,11 +48,9 @@
                                         </thead>
 
                                         <tbody>
-                                        <g:each in="${materialsList}" var="list">
+                                        <g:each in="${materialsList}" var="list" status="i">
                                         <tr class="even pointer">
-                                            <td class="a-center ">
-                                                <input type="checkbox" class="flat" name="table_records">
-                                            </td>
+                                            <td class=" ">${i+1}</td>
                                             <td class=" ">${list.materialName}</td>
 
                                             <td class=" last"><g:link action="edit" controller="material" params="[identityMaterialName:list.identityMaterialName]">View</g:link>
