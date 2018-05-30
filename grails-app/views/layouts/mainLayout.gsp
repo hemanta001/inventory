@@ -68,7 +68,7 @@
                                 <ul class="nav child_menu">
                                     <li><a>Material<span class="fa fa-chevron-down"></span></a>
                                         <ul class="nav child_menu">
-                                            <li><g:link action="create" controller="materials">Add</g:link>
+                                            <li><g:link action="create" controller="material">Add</g:link>
                                             </li>
                                             <li><a href="#level2_2">List</a>
                                             </li>

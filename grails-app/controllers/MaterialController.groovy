@@ -20,5 +20,8 @@ class MaterialController {
         methodsService.deleteMaterial(params.identityMaterialName)
         redirect(action: "list")
     }
+    def create(){
+
+    }
 
 }
