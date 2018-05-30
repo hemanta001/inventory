@@ -1,7 +1,8 @@
 class Weight {
     float weightQuantity
     Unit unit
-    String weightQuantityAndUnit
+    String weightQuantityUnit
+    String identityWeightQuantityUnit
     boolean delFlag
 
     static constraints = {

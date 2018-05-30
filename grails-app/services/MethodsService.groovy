@@ -69,6 +69,72 @@ class MethodsService {
         return itemList
     }
 
+    def saveWeight(Map params){
+        if(params.identityWeightQuantityUnit){
+            def weight=Weight.findByDelFlagAndIdentityWeightQuantityUnit(false,params.identityWeightQuantityUnit)
+            weight.weightQuantityUnit=params.weightQuantityUnit
+            weight.save(flush: true)
+            return weight.identityWeightQuantityUnit
+        }
+        else{
+            def weight=new Weight()
+            weight.weightQuantityUnit=params.weightQuantityUnit
+            weight.identityWeightQuantityUnit=convertToOriginalUrl(params.weightQuantityUnit)
+            weight.delFlag=false
+            weight.save(flush: true)
+            return weight.identityWeightQuantityUnit
+        }
+    }
+
+    def showWeight(String identityWeightQuantityUnit){
+        def weight=Weight.findByDelFlagAndIdentityWeightQuantityUnit(false,identityWeightQuantityUnit)
+        return weight
+    }
+
+    def deleteWeight(String identityWeightQuantityUnit){
+        def weight=Weight.findByDelFlagAndIdentityWeightQuantityUnit(false,identityWeightQuantityUnit)
+        weight.delFlag=true
+        weight.save(flush: true)
+    }
+
+    def listOfWeight(){
+        def weightList=Weight.findAllByDelFlag(false)
+        return weightList
+    }
+
+    def saveUnit(Map params){
+        if(params.identityUnitName){
+            def unit=Unit.findByDelFlagAndIdentityUnitName(false,params.identityUnitName)
+            unit.unitName=params.unitName
+            unit.save(flush: true)
+            return unit.identityUnitName
+        }
+        else{
+            def unit=new Unit()
+            unit.unitName=params.unitName
+            unit.identityUnitName=convertToOriginalUrl(params.unitName)
+            unit.delFlag=false
+            unit.save(flush: true)
+            return unit.identityUnitName
+        }
+    }
+
+    def showUnit(String identityUnitName){
+        def unit=Unit.findByDelFlagAndIdentityUnitName(false,identityUnitName)
+        return unit
+    }
+
+    def deleteUnit(String identityUnitName){
+        def unit=Unit.findByDelFlagAndIdentityUnitName(false,identityUnitName)
+        unit.delFlag=true
+        unit.save(flush: true)
+    }
+
+    def listOfUnit(){
+        def unitList=Unit.findAllByDelFlag(false)
+        return unitList
+    }
+
     def convertToOriginalUrl(String urlName){
         def urlOriginal=""
         urlName = urlName.replace("&", "");
