@@ -13,6 +13,6 @@
 </head>
 
 <body>
-I am at home. no I am at office.
+
 </body>
 </html>
