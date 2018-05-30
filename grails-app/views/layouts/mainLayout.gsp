@@ -31,7 +31,7 @@
 <div class="container body">
     <div class="main_container">
         <div class="col-md-3 left_col">
-            <div class="left_col scroll-view">
+            <div class="left_col scroll-view ">
                 <div class="navbar nav_title" style="border: 0;">
                     <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>Gentelella Alela!</span></a>
                 </div>
@@ -53,16 +53,11 @@
                 <br />
 
                 <!-- sidebar menu -->
-                <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+                <div id="sidebar-menu" class="main_menu_side hidden-print main_menu ">
                     <div class="menu_section">
                         <h3>General</h3>
                         <ul class="nav side-menu">
-                            <li><a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
-                                <ul class="nav child_menu">
-                                    <li><a href="index.html">Dashboard</a></li>
-                                    <li><a href="index2.html">Dashboard2</a></li>
-                                    <li><a href="index3.html">Dashboard3</a></li>
-                                </ul>
+                            <li><g:link action="home" controller="home"><i class="fa fa-home"></i> Home</g:link>
                             </li>
                             <li><a><i class="fa fa-edit"></i> SetUp <span class="fa fa-chevron-down"></span></a>
                                 <ul class="nav child_menu">
@@ -70,7 +65,7 @@
                                         <ul class="nav child_menu">
                                             <li><g:link action="create" controller="material">Add</g:link>
                                             </li>
-                                            <li><a href="#level2_2">List</a>
+                                            <li><g:link action="list" controller="material">List</g:link>
                                             </li>
 
                                         </ul>
@@ -214,7 +209,8 @@
                             <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
                                 <li>
                                     <a>
-                                        <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
+
+                                        <span class="image"><img src="${resource(dir: 'images', file: 'img.jpg')}" alt="Profile Image" /></span>
                                         <span>
                                             <span>John Smith</span>
                                             <span class="time">3 mins ago</span>
@@ -226,7 +222,8 @@
                                 </li>
                                 <li>
                                     <a>
-                                        <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
+
+                                        <span class="image"><img src="${resource(dir: 'images', file: 'img.jpg')}" alt="Profile Image" /></span>
                                         <span>
                                             <span>John Smith</span>
                                             <span class="time">3 mins ago</span>
@@ -238,7 +235,7 @@
                                 </li>
                                 <li>
                                     <a>
-                                        <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
+                                        <span class="image"><img src="${resource(dir: 'images', file: 'img.jpg')}" alt="Profile Image" /></span>
                                         <span>
                                             <span>John Smith</span>
                                             <span class="time">3 mins ago</span>
@@ -250,7 +247,8 @@
                                 </li>
                                 <li>
                                     <a>
-                                        <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
+
+                                        <span class="image"><img src="${resource(dir: 'images', file: 'img.jpg')}" alt="Profile Image" /></span>
                                         <span>
                                             <span>John Smith</span>
                                             <span class="time">3 mins ago</span>

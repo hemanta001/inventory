@@ -14,21 +14,23 @@
                 <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                 </li>
 
-                </li>
+
             </ul>
             <div class="clearfix"></div>
         </div>
         <div class="x_content">
             <br />
-            <form class="form-horizontal form-label-left">
+            <g:form action="save" controller="material" class="form-horizontal form-label-left">
 
+                <g:render template="form"></g:render>
                 <div class="form-group">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Default Input</label>
-                    <div class="col-md-9 col-sm-9 col-xs-12">
-                        <input type="text" name="" class="form-control" placeholder="Default Input">
+                    <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
+                        <button type="reset" class="btn btn-primary">Reset</button>
+                        <g:submitButton name="save" value="Submit" class="btn btn-success">Submit</g:submitButton>
                     </div>
                 </div>
-                %{--<div class="form-group">--}%
+
+            %{--<div class="form-group">--}%
                     %{--<label class="control-label col-md-3 col-sm-3 col-xs-12">Disabled Input </label>--}%
                     %{--<div class="col-md-9 col-sm-9 col-xs-12">--}%
                         %{--<input type="text" class="form-control" disabled="disabled" placeholder="Disabled Input">--}%
@@ -302,15 +304,8 @@
 
 
                 %{--<div class="ln_solid"></div>--}%
-                <div class="form-group">
-                    <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
-                        <button type="button" class="btn btn-primary">Cancel</button>
-                        <button type="reset" class="btn btn-primary">Reset</button>
-                        <button type="submit" class="btn btn-success">Submit</button>
-                    </div>
-                </div>
 
-            </form>
+            </g:form>
         </div>
     </div>
 </div>

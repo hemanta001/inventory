@@ -6,7 +6,7 @@ class MaterialController {
     }
     def save(){
         def materialName=methodsService.saveMaterial(params)
-        redirect(action: "show",identityMaterialName: materialName)
+        redirect(action: "edit",params: [ identityMaterialName: materialName])
     }
     def show(){
         def material= methodsService.showMaterial(params.identityMaterialName)

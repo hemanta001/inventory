@@ -7,13 +7,14 @@ class MethodsService {
        if(params.identityMaterialName){
            def material=Material.findByDelFlagAndIdentityMaterialName(false,params.identityMaterialName)
            material.materialName=params.materialName
+           material.identityMaterialName=convertToOriginalUrl(material.materialName)
            material.save(flush: true)
            return material.identityMaterialName
        }
         else{
            def material=new Material()
            material.materialName=params.materialName
-           material.identityMaterialName=convertToOriginalUrl(params.materialName)
+           material.identityMaterialName=convertToOriginalUrl(material.materialName)
            material.delFlag=false
            material.save(flush: true)
            return material.identityMaterialName
@@ -40,6 +41,8 @@ class MethodsService {
         if(params.identityItemName){
             def item=Item.findByDelFlagAndIdentityItemName(false,params.identityItemName)
             item.itemName=params.itemName
+            item.identityItemName=convertToOriginalUrl(item.itemName)
+
             item.save(flush: true)
             return item.identityItemName
         }
@@ -73,6 +76,7 @@ class MethodsService {
         if(params.identityWeightQuantityUnit){
             def weight=Weight.findByDelFlagAndIdentityWeightQuantityUnit(false,params.identityWeightQuantityUnit)
             weight.weightQuantityUnit=params.weightQuantityUnit
+            weight.identityWeightQuantityUnit=convertToOriginalUrl(params.weightQuantityUnit)
             weight.save(flush: true)
             return weight.identityWeightQuantityUnit
         }
@@ -106,6 +110,7 @@ class MethodsService {
         if(params.identityUnitName){
             def unit=Unit.findByDelFlagAndIdentityUnitName(false,params.identityUnitName)
             unit.unitName=params.unitName
+            unit.identityUnitName=convertToOriginalUrl(params.unitName)
             unit.save(flush: true)
             return unit.identityUnitName
         }
