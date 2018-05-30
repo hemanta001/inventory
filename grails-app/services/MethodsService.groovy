@@ -2,7 +2,7 @@
 import grails.transaction.Transactional
 
 @Transactional
-class ServiceMethodsService {
+class MethodsService {
 
     def convertToOriginalUrl(String urlName){
         def urlOriginal=""
