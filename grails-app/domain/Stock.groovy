@@ -5,7 +5,6 @@ class Stock {
     String date
     String stockType
     boolean delFlag
-    String stockId
     static constraints = {
 
     }

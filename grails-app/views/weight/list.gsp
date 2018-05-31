@@ -55,6 +55,7 @@
 
                                             <td class=" last"><g:link action="show" controller="weight" params="[identityWeightQuantityUnit:list.identityWeightQuantityUnit]">View</g:link>
                                             </td>
+
                                         </tr>
                                         </g:each>
                                         </tbody>

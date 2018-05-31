@@ -9,7 +9,7 @@
 <div class="col-md-12 col-xs-12">
     <div class="x_panel">
         <div class="x_title">
-            <h2>${totalArray[0].materialName}<small>${totalArray[1]}</small><small><g:link action="list" controller="unit" class="btn btn-success btn-xs">List</g:link></small></h2>
+            <h2>${materialInstance.materialName}<small>${stockType} add</small><small><g:link action="list" controller="stock" params="[stockType:stockType,identityMaterialName:materialInstance.identityMaterialName]" class="btn btn-success btn-xs">List</g:link></small></h2>
             <ul class="nav navbar-right panel_toolbox">
                 <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                 </li>
@@ -19,8 +19,8 @@
         <div class="x_content">
             <br />
             <g:form action="save" controller="stock" class="form-horizontal form-label-left">
-<g:hiddenField name="identityMaterialName" value="${totalArray[0].materialName}"></g:hiddenField>
-                <g:hiddenField name="stockType" value="${totalArray[1]}"></g:hiddenField>
+<g:hiddenField name="identityMaterialName" value="${materialInstance.identityMaterialName}"></g:hiddenField>
+                <g:hiddenField name="stockType" value="${stockType}"></g:hiddenField>
 
                 <g:render template="form"></g:render>
                 <div class="form-group">

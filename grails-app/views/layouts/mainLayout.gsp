@@ -20,6 +20,8 @@
     <!-- bootstrap-progressbar -->
     <link rel="stylesheet" href="${resource(dir: 'css', file: 'bootstrap-progressbar-3.3.4.min.css')}" type="text/css"
           media="all"/>
+    <link rel="stylesheet" href="${resource(dir: 'css', file: 'dataTables.bootstrap.min.css')}" type="text/css"
+          media="all"/>
 
     <!-- Custom Theme Style -->
     <link rel="stylesheet" href="${resource(dir: 'css', file: 'custom.min.css')}" type="text/css"
@@ -358,6 +360,19 @@
 <!-- bootstrap-progressbar -->
 <script src="${resource(dir: 'js', file: 'bootstrap-progressbar.min.js')}" type="text/javascript"
         charset="utf-8"></script>
+<script src="${resource(dir: 'js', file: 'jquery.dataTables.min.js')}" type="text/javascript"
+        charset="utf-8"></script>
+<script src="${resource(dir: 'js', file: 'dataTables.bootstrap.min.js')}" type="text/javascript"
+        charset="utf-8"></script>
+<script src="${resource(dir: 'js', file: 'dataTables.fixedHeader.min.js')}" type="text/javascript"
+        charset="utf-8"></script>
+<script src="${resource(dir: 'js', file: 'dataTables.keyTable.min.js')}" type="text/javascript"
+        charset="utf-8"></script>
+<script src="${resource(dir: 'js', file: 'dataTables.responsive.min.js')}" type="text/javascript"
+        charset="utf-8"></script>
+<script src="${resource(dir: 'js', file: 'dataTables.scroller.min.js')}" type="text/javascript"
+        charset="utf-8"></script>
+
 <!-- Custom Theme Scripts -->
 <script src="${resource(dir: 'js', file: 'custom.min.js')}" type="text/javascript"
         charset="utf-8"></script>

@@ -2,13 +2,13 @@
 <div class="form-group">
     <label class="control-label col-md-3 col-sm-3 col-xs-12">Select Item</label>
     <div class="col-md-9 col-sm-9 col-xs-12">
-        <g:select name="itemId" from="${Item.findAllByDelFlag(false)}" optionValue="itemName" optionKey="id" class="form-control" value="${stockInstance?.item?.id}"/>
+        <g:select name="itemId" from="${Item.findAllByDelFlag(false)}" optionValue="itemName" optionKey="id" class="form-control" value="${stockInstance?.item?.itemName}"/>
     </div>
 </div>
 <div class="form-group">
     <label class="control-label col-md-3 col-sm-3 col-xs-12">Select Weight</label>
     <div class="col-md-9 col-sm-9 col-xs-12">
-        <g:select name="weightId" from="${Weight.findAllByDelFlag(false)}" optionValue="weightQuantityUnit" optionKey="id" class="form-control" value="${stockInstance?.weight?.id}"/>
+        <g:select name="weightId" from="${Weight.findAllByDelFlag(false)}" optionValue="weightQuantityUnit" optionKey="id" class="form-control" value="${stockInstance?.weight?.weightQuantityUnit}"/>
     </div>
 </div>
 <div class="form-group">
