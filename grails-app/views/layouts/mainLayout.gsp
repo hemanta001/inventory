@@ -70,8 +70,68 @@
 
                                         </ul>
                                     </li>
+                                    <li><a>Item<span class="fa fa-chevron-down"></span></a>
+                                        <ul class="nav child_menu">
+                                            <li><g:link action="create" controller="item">Add</g:link>
+                                            </li>
+                                            <li><g:link action="list" controller="item">List</g:link>
+                                            </li>
+
+                                        </ul>
+                                    </li>
+                                    <li><a>Unit<span class="fa fa-chevron-down"></span></a>
+                                        <ul class="nav child_menu">
+                                            <li><g:link action="create" controller="unit">Add</g:link>
+                                            </li>
+                                            <li><g:link action="list" controller="unit">List</g:link>
+                                            </li>
+
+                                        </ul>
+                                    </li>
+                                    <li><a>Weight<span class="fa fa-chevron-down"></span></a>
+                                        <ul class="nav child_menu">
+                                            <li><g:link action="create" controller="weight">Add</g:link>
+                                            </li>
+                                            <li><g:link action="list" controller="weight">List</g:link>
+                                            </li>
+
+                                        </ul>
+                                    </li>
+
+                                </ul>
+
+                            </li>
+                            <li><a><i class="fa fa-edit"></i> Stock In <span class="fa fa-chevron-down"></span></a>
+                                <ul class="nav child_menu">
+                                    <g:each in="${Material.findAllByDelFlag(false)}" var="list">
+                                    <li><a>${list.materialName}<span class="fa fa-chevron-down"></span></a>
+                                        <ul class="nav child_menu">
+                                            <li><g:link action="create" params="[stockType:'stock-in',identityMaterialName:list.identityMaterialName]" controller="stock">Add</g:link>
+                                            </li>
+                                            <li><g:link action="list" params="[stockType:'stock-in',identityMaterialName:list.identityMaterialName]" controller="stock">List</g:link>
+                                            </li>
+
+                                        </ul>
+                                    </li>
+                                    </g:each>
                                 </ul>
                             </li>
+                            <li><a><i class="fa fa-edit"></i> Stock Out <span class="fa fa-chevron-down"></span></a>
+                                <ul class="nav child_menu">
+                                    <g:each in="${Material.findAllByDelFlag(false)}" var="list">
+                                        <li><a>${list.materialName}<span class="fa fa-chevron-down"></span></a>
+                                            <ul class="nav child_menu">
+                                                <li><g:link action="create" params="[stockType:'stock-out',identityMaterialName:list.identityMaterialName]" controller="stock">Add</g:link>
+                                                </li>
+                                                <li><g:link action="list" params="[stockType:'stock-out',identityMaterialName:list.identityMaterialName]" controller="stock">List</g:link>
+                                                </li>
+
+                                            </ul>
+                                        </li>
+                                    </g:each>
+                                </ul>
+                            </li>
+
                             <li><a><i class="fa fa-desktop"></i> UI Elements <span class="fa fa-chevron-down"></span></a>
                                 <ul class="nav child_menu">
                                     <li><a href="general_elements.html">General Elements</a></li>

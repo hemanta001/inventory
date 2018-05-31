@@ -16,7 +16,7 @@
 <div class="col-md-12 col-xs-12">
     <div class="x_panel">
         <div class="x_title">
-            <h2>Material <small>edit</small><small><g:link action="create" controller="material"  class="btn btn-success btn-xs">Add</g:link></small><small><g:link action="list" controller="material"  class="btn btn-success btn-xs">List</g:link></small></h2>
+            <h2>Weight <small>edit</small><small><g:link action="create" controller="weight"  class="btn btn-success btn-xs">Add</g:link></small><small><g:link action="list" controller="weight"  class="btn btn-success btn-xs">List</g:link></small></h2>
             <ul class="nav navbar-right panel_toolbox">
                 <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                 </li>
@@ -27,8 +27,8 @@
         </div>
         <div class="x_content">
             <br />
-            <g:form action="save" controller="material" class="form-horizontal form-label-left">
-                <g:hiddenField name="identityMaterialName" value="${material?.identityMaterialName}"></g:hiddenField>
+            <g:form action="save" controller="weight" class="form-horizontal form-label-left">
+                <g:hiddenField name="identityWeightQuantityUnit" value="${weight?.identityWeightQuantityUnit}"></g:hiddenField>
                 <g:render template="form"></g:render>
                 <div class="form-group">
                     <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">

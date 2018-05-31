@@ -19,7 +19,7 @@
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="x_panel">
                             <div class="x_title">
-                                <h2>Material <small>List</small><small><g:link action="create" controller="material" class="btn btn-success btn-xs">Add</g:link></small></h2>
+                                <h2>Unit <small>List</small><small><g:link action="create" controller="unit" class="btn btn-success btn-xs">Add</g:link></small></h2>
                                 <ul class="nav navbar-right panel_toolbox">
                                     <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                                     </li>
@@ -39,7 +39,7 @@
                                             <th>
                                                 S.N.
                                             </th>
-                                            <th class="column-title">Material</th>
+                                            <th class="column-title">Item</th>
 
                                             <th class="column-title no-link last"><span class="nobr">Action</span>
                                             </th>
@@ -48,12 +48,12 @@
                                         </thead>
 
                                         <tbody>
-                                        <g:each in="${materialsList}" var="list" status="i">
+                                        <g:each in="${unitList}" var="list" status="i">
                                         <tr class="even pointer">
                                             <td class=" ">${i+1}</td>
-                                            <td class=" ">${list.materialName}</td>
+                                            <td class=" ">${list.unitName}</td>
 
-                                            <td class=" last"><g:link action="show" controller="material" params="[identityMaterialName:list.identityMaterialName]">View</g:link>
+                                            <td class=" last"><g:link action="show" controller="unit" params="[identityUnitName:list.identityUnitName]">View</g:link>
                                             </td>
                                         </tr>
                                         </g:each>

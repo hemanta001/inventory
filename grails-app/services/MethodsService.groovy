@@ -1,8 +1,11 @@
 
 import grails.transaction.Transactional
+import groovy.sql.Sql
+
 
 @Transactional
 class MethodsService {
+    def dataSource
     def saveMaterial(Map params){
        if(params.identityMaterialName){
            def material=Material.findByDelFlagAndIdentityMaterialName(false,params.identityMaterialName)
@@ -17,10 +20,23 @@ class MethodsService {
            material.identityMaterialName=convertToOriginalUrl(material.materialName)
            material.delFlag=false
            material.save(flush: true)
+           createTable(material.identityMaterialName)
            return material.identityMaterialName
        }
     }
-
+def createTable(String tableName){
+    def sql =new Sql(dataSource)
+    // the sql script that creates a table
+    def createTableScript = "CREATE TABLE IF NOT EXISTS "+tableName+" (id BIGINT(20) NOT NULL  AUTO_INCREMENT,quantity_number BIGINT(20) NOT NULL,del_flag BIT(1) NOT NULL,date VARCHAR(255) NOT NULL,stock_type VARCHAR(50) NOT NULL,stock_id VARCHAR(255) NOT NULL,item_id BIGINT(20) NOT NULL,weight_id BIGINT(20) NOT NULL,FOREIGN KEY (item_id) REFERENCES item(id),FOREIGN KEY (weight_id) REFERENCES weight(id),PRIMARY KEY (id))"
+    // execute the create table script
+    sql.execute(createTableScript);
+    // query MySQL for the details of the created table
+    sql.eachRow('DESCRIBE '+tableName){ row ->
+        println "Fielld = ${row[0]}, type = ${row[1]}"
+    }
+    // close connection
+    sql.close()
+}
     def showMaterial(String identityMaterialName){
         def material=Material.findByDelFlagAndIdentityMaterialName(false,identityMaterialName)
         return material
@@ -75,15 +91,19 @@ class MethodsService {
     def saveWeight(Map params){
         if(params.identityWeightQuantityUnit){
             def weight=Weight.findByDelFlagAndIdentityWeightQuantityUnit(false,params.identityWeightQuantityUnit)
-            weight.weightQuantityUnit=params.weightQuantityUnit
-            weight.identityWeightQuantityUnit=convertToOriginalUrl(params.weightQuantityUnit)
+            weight.weightQuantity=params.weightQuantity as float
+            weight.unit=Unit.findByDelFlagAndId(false,params.unitId)
+            weight.weightQuantityUnit=weight.weightQuantity+" "+weight.unit.unitName
+            weight.identityWeightQuantityUnit=convertToOriginalUrl(weight.weightQuantityUnit)
             weight.save(flush: true)
             return weight.identityWeightQuantityUnit
         }
         else{
             def weight=new Weight()
-            weight.weightQuantityUnit=params.weightQuantityUnit
-            weight.identityWeightQuantityUnit=convertToOriginalUrl(params.weightQuantityUnit)
+            weight.weightQuantity=params.weightQuantity as float
+            weight.unit=Unit.findByDelFlagAndId(false,params.unitId)
+            weight.weightQuantityUnit=weight.weightQuantity+" "+weight.unit.unitName
+            weight.identityWeightQuantityUnit=convertToOriginalUrl(weight.weightQuantityUnit)
             weight.delFlag=false
             weight.save(flush: true)
             return weight.identityWeightQuantityUnit
@@ -94,7 +114,6 @@ class MethodsService {
         def weight=Weight.findByDelFlagAndIdentityWeightQuantityUnit(false,identityWeightQuantityUnit)
         return weight
     }
-
     def deleteWeight(String identityWeightQuantityUnit){
         def weight=Weight.findByDelFlagAndIdentityWeightQuantityUnit(false,identityWeightQuantityUnit)
         weight.delFlag=true
@@ -158,5 +177,29 @@ class MethodsService {
         return  urlOriginal
 
     }
+    def showStock(Map params){
+        def materialInstance=Material.findByDelFlagAndIdentityMaterialName(false,params.identityMaterialName)
+def totalArray=[materialInstance,params.stockType]
+        return totalArray
+    }
+    def saveStock(Map params){
+        def sql =new Sql(dataSource)
+        String stockId = UUID.randomUUID().toString()
+        // the sql script that creates a table
+        def createTableScript = "INSERT INTO "+params.identityMaterialName+ " (item_id,weight_id,quantity_number,date,stock_type,stock_id,del_flag ) VALUES ((SELECT id from item WHERE id='"+params.itemId+"' ),(SELECT id from weight WHERE id='"+params.weightId+"' ),'"+params.quantityNumber+"','"+params.date+"','"+params.stockType+"','"+stockId+"',0)"
+        // execute the create table script
+     def keys=sql.executeInsert(createTableScript);
+        Long id=keys[0][0]
+        sql.eachRow('SELECT * FROM '+params.identityMaterialName+' WHERE id='+id){ row ->
+            println "Fielld1 = ${row[0]}, Fielld2 = ${row[1]}"
+            println "Fielld3 = ${row[2]}, Fielld4 = ${row[3]}"
+            println "Fielld5 = ${row[4]}, Fielld6 = ${row[5]}"
+            println "Fielld5 = ${row[6]}, Fielld6 = ${row[7]}"
+
+        }
+        // close connection
+        sql.close()
+    }
+
 
 }

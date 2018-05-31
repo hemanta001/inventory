@@ -1,12 +1,15 @@
 class WeightController {
     def methodsService
+    def create(){
+
+    }
     def list(){
         def weightList=methodsService.listOfWeight()
         [weightList: weightList]
     }
     def save(){
         def weightQuantityUnit=methodsService.saveWeight(params)
-        redirect(action: "show",identityWeightQuantityUnit: weightQuantityUnit)
+        redirect(action: "show",params: [ identityWeightQuantityUnit: weightQuantityUnit])
     }
     def show(){
         def weight= methodsService.showWeight(params.identityWeightQuantityUnit)

@@ -1,12 +1,15 @@
 class UnitController {
     def methodsService
+    def create(){
+
+    }
     def list(){
         def unitList=methodsService.listOfUnit()
         [unitList: unitList]
     }
     def save(){
         def unitName=methodsService.saveUnit(params)
-        redirect(action: "show",identityUnitName: unitName)
+        redirect(action: "show",params:[identityUnitName: unitName])
     }
     def show(){
         def unit= methodsService.showUnit(params.identityUnitName)
