@@ -26,4 +26,8 @@ redirect(action: "show",params: [identityMaterialName: totalArray[1],stock: tota
         def stockList=methodsService.listOfStock(params)
         [stockList:stockList,materialInstance:Material.findByDelFlagAndIdentityMaterialName(false,params.identityMaterialName),stockType:params.stockType]
     }
+    def delete(){
+        methodsService.deleteStock(params)
+        redirect(action: "list",params: [stockType:params.stockType,identityMaterialName:params.identityMaterialName])
+    }
 }

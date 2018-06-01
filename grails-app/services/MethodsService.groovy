@@ -183,16 +183,31 @@ class MethodsService {
 
     def saveStock(Map params) {
         def sql = new Sql(dataSource)
+        def id
+        def createTableScript
+        def array=[]
+        if(!params.id){
         // the sql script that creates a table
-        def createTableScript = "INSERT INTO " + params.identityMaterialName + " (item_id,weight_id,quantity_number,date,stock_type,del_flag ) VALUES ((SELECT id from item WHERE id='" + params.itemId + "' ),(SELECT id from weight WHERE id='" + params.weightId + "' ),'" + params.quantityNumber + "','" + params.date + "','" + params.stockType + "',0)"
+        createTableScript = "INSERT INTO " + params.identityMaterialName + " (item_id,weight_id,quantity_number,date,stock_type,del_flag ) VALUES ((SELECT id from item WHERE id='" + params.itemId + "' ),(SELECT id from weight WHERE id='" + params.weightId + "' ),'" + params.quantityNumber + "','" + params.date + "','" + params.stockType + "',0)"
         // execute the create table script
         def keys = sql.executeInsert(createTableScript);
-        Long id = keys[0][0]
+        id = keys[0][0]
       Stock stock=showStock(params.identityMaterialName,id)
         // close connection
         sql.close()
-        def array=[stock,params.identityMaterialName]
-        return array
+        array=[stock,params.identityMaterialName]
+        return array}
+        else{
+            id=params.id as Long
+            createTableScript = "UPDATE "+params.identityMaterialName+" SET item_id = (SELECT id from item WHERE id=" + params.itemId + " ), weight_id= (SELECT id from weight WHERE id=" + params.weightId +"),quantity_number=" + params.quantityNumber+",date="+params.date +" WHERE id="+id
+            // execute the create table script
+sql.execute(createTableScript)
+            Stock stock=showStock(params.identityMaterialName,id)
+            // close connection
+            sql.close()
+            array=[stock,params.identityMaterialName]
+            return array
+        }
     }
 
 def showStock(String tableName,Long id){
@@ -213,7 +228,7 @@ def showStock(String tableName,Long id){
     def listOfStock(Map params){
         def sql = new Sql(dataSource)
         List<Stock> stockList=new ArrayList<>()
-        sql.eachRow('SELECT * FROM ' + params.identityMaterialName) { row ->
+        sql.eachRow('SELECT * FROM ' + params.identityMaterialName+" WHERE del_flag=0") { row ->
             Stock stock = new Stock()
             stock.id = row[0]
             stock.quantityNumber = row[1]
@@ -228,6 +243,12 @@ def showStock(String tableName,Long id){
         }
         sql.close()
         return stockList
+    }
+    def deleteStock(Map params){
+        def sql = new Sql(dataSource)
+        String createScript="UPDATE "+params.identityMaterialName+" SET del_flag=1  WHERE id="+params.stock
+        sql.execute(createScript)
+        sql.close()
     }
     }
 

@@ -50,7 +50,7 @@
 
                 <div class="form-group">
                     <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
-                        <small><g:link action="delete" controller="stock" params="[identityMaterialName:materialInstance.identityMaterialName,stock:stockInstance.id]" class="btn btn-danger btn-xs">Delete</g:link></small>
+                        <small><g:link action="delete" controller="stock" params="[identityMaterialName:materialInstance.identityMaterialName,stock:stockInstance.id,stockType: stockInstance.stockType]" class="btn btn-danger btn-xs">Delete</g:link></small>
                         <small><g:link action="edit" controller="stock" params="[identityMaterialName:materialInstance.identityMaterialName,stock:stockInstance.id]" class="btn btn-success btn-xs">Edit</g:link></small>
                     </div>
                 </div>

@@ -52,7 +52,7 @@
                                         <td>${list.item.itemName}</td>
                                         <td>${list.quantityNumber}</td>
                                         <td>${list.date}</td>
-                                        <td><g:link action="edit" controller="stock" params="[identityMaterialName:materialInstance.identityMaterialName,stock:list.id]" >View</g:link></td>
+                                        <td><g:link action="show" controller="stock" params="[identityMaterialName:materialInstance.identityMaterialName,stock:list.id]" >View</g:link></td>
                                     </tr>
                                 </g:each>
                                     </tbody>
