@@ -133,6 +133,20 @@
                                     </g:each>
                                 </ul>
                             </li>
+                            <li><a><i class="fa fa-edit"></i> Stock Remaining <span class="fa fa-chevron-down"></span></a>
+                                <ul class="nav child_menu">
+                                    <g:each in="${Material.findAllByDelFlag(false)}" var="list">
+                                        <li><a>${list.materialName}<span class="fa fa-chevron-down"></span></a>
+                                            <ul class="nav child_menu">
+
+                                                <li><g:link action="remainingStockList" params="[identityMaterialName:list.identityMaterialName]" controller="stock">List</g:link>
+                                                </li>
+
+                                            </ul>
+                                        </li>
+                                    </g:each>
+                                </ul>
+                            </li>
 
                             <li><a><i class="fa fa-desktop"></i> UI Elements <span class="fa fa-chevron-down"></span></a>
                                 <ul class="nav child_menu">

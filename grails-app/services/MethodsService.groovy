@@ -185,75 +185,105 @@ class MethodsService {
         def sql = new Sql(dataSource)
         def id
         def createTableScript
-        def array=[]
-        def itemName=Item.findByIdAndDelFlag(params.id,false).itemName
-        def weightQuantityUnit=Weight.findByIdAndDelFlag(params.weightId,false).weightQuantityUnit
-        def itemWithWeightAndUnit=weightQuantityUnit+" "+itemName
-        if(!params.id){
+        def array = []
+        def itemName = Item.findByIdAndDelFlag(params.itemId, false).itemName
+        def weightQuantityUnit = Weight.findByIdAndDelFlag(params.weightId, false).weightQuantityUnit
+        def itemWithWeightAndUnit = weightQuantityUnit + " " + itemName
+        if (!params.id) {
 
-        // the sql script that creates a table
-        createTableScript = "INSERT INTO " + params.identityMaterialName + " (item_id,weight_id,quantity_number,date,stock_type,item_with_weight_and_unit,del_flag ) VALUES ((SELECT id from item WHERE id='" + params.itemId + "' ),(SELECT id from weight WHERE id='" + params.weightId + "' ),'" + params.quantityNumber + "','" + params.date + "','" + params.stockType + "','"+itemWithWeightAndUnit+",0)"
-        // execute the create table script
-        def keys = sql.executeInsert(createTableScript);
-        id = keys[0][0]
-      Stock stock=showStock(params.identityMaterialName,id)
-        // close connection
-        sql.close()
-        array=[stock,params.identityMaterialName]
-        return array}
-        else{
-
-            id=params.id as Long
-            createTableScript = "UPDATE "+params.identityMaterialName+" SET item_id = (SELECT id from item WHERE id=" + params.itemId + " ), weight_id= (SELECT id from weight WHERE id=" + params.weightId +"),quantity_number=" + params.quantityNumber+",date="+params.date +",stock_type,item_with_weight_and_unit="+itemWithWeightAndUnit+" WHERE id="+id
+            // the sql script that creates a table
+            createTableScript = "INSERT INTO " + params.identityMaterialName + " (item_id,weight_id,quantity_number,date,stock_type,item_with_weight_and_unit,del_flag ) VALUES ((SELECT id from item WHERE id='" + params.itemId + "' ),(SELECT id from weight WHERE id='" + params.weightId + "' ),'" + params.quantityNumber + "','" + params.date + "','" + params.stockType + "','" + itemWithWeightAndUnit + "',0)"
             // execute the create table script
-sql.execute(createTableScript)
-            Stock stock=showStock(params.identityMaterialName,id)
+            def keys = sql.executeInsert(createTableScript);
+            id = keys[0][0]
+            Stock stock = showStock(params.identityMaterialName, id)
             // close connection
             sql.close()
-            array=[stock,params.identityMaterialName]
+            array = [stock, params.identityMaterialName]
+            return array
+        } else {
+            id = params.id as Long
+            createTableScript = "UPDATE " + params.identityMaterialName + " SET item_id = (SELECT id from item WHERE id=" + params.itemId + " ), weight_id= (SELECT id from weight WHERE id=" + params.weightId + "), quantity_number='" + params.quantityNumber + "', item_with_weight_and_unit='" + itemWithWeightAndUnit + "',date='" + params.date + "'  WHERE id=" + id
+            // execute the create table script
+            sql.execute(createTableScript)
+            Stock stock = showStock(params.identityMaterialName, id)
+            // close connection
+            sql.close()
+            array = [stock, params.identityMaterialName]
             return array
         }
     }
 
-def showStock(String tableName,Long id){
-    def sql = new Sql(dataSource)
-    Stock stock = new Stock()
-    sql.eachRow('SELECT * FROM ' + tableName + ' WHERE id=' + id) { row ->
-        stock.id = row[0]
-        stock.quantityNumber = row[1]
-        stock.delFlag = row[2]
-        stock.date = row[3]
-        stock.stockType = row[4]
-        stock.item = Item.get(row[5])
-        stock.weight = Weight.get(row[6])
-    }
-    sql.close()
-    return stock
-}
-    def listOfStock(Map params){
+    def showStock(String tableName, Long id) {
         def sql = new Sql(dataSource)
-        List<Stock> stockList=new ArrayList<>()
-        sql.eachRow('SELECT * FROM ' + params.identityMaterialName+" WHERE del_flag=0") { row ->
+        Stock stock = new Stock()
+        sql.eachRow('SELECT * FROM ' + tableName + ' WHERE id=' + id) { row ->
+            stock.id = row[0]
+            stock.quantityNumber = row[1]
+            stock.delFlag = row[2]
+            stock.date = row[3]
+            stock.stockType = row[4]
+            stock.itemWithWeightAndUnit = row[5]
+            stock.item = Item.get(row[6])
+            stock.weight = Weight.get(row[7])
+        }
+        sql.close()
+        return stock
+    }
+
+    def listOfStock(Map params) {
+        def sql = new Sql(dataSource)
+        List<Stock> stockList = new ArrayList<>()
+        sql.eachRow('SELECT * FROM ' + params.identityMaterialName + " WHERE del_flag=0") { row ->
             Stock stock = new Stock()
             stock.id = row[0]
             stock.quantityNumber = row[1]
             stock.delFlag = row[2]
             stock.date = row[3]
             stock.stockType = row[4]
-            stock.item = Item.get(row[5])
-            stock.weight = Weight.get(row[6])
-            stock.stockType = row[4]
-            if(stock.stockType.equalsIgnoreCase(params.stockType)){
-            stockList.add(stock)}
+            stock.itemWithWeightAndUnit = row[5]
+            stock.item = Item.get(row[6])
+            stock.weight = Weight.get(row[7])
+            if (stock.stockType.equalsIgnoreCase(params.stockType)) {
+                stockList.add(stock)
+            }
         }
         sql.close()
         return stockList
     }
-    def deleteStock(Map params){
+
+    def deleteStock(Map params) {
         def sql = new Sql(dataSource)
-        String createScript="UPDATE "+params.identityMaterialName+" SET del_flag=1  WHERE id="+params.stock
+        String createScript = "UPDATE " + params.identityMaterialName + " SET del_flag=1  WHERE id=" + params.stock
         sql.execute(createScript)
         sql.close()
     }
+
+    def remainingStockList(Map params) {
+        def totalStockList=totalArrayList(params)
+        def remainingStockList=totalToRemainingStockList(totalStockList)
+return remainingStockList
     }
+    def totalToRemainingStockList(List<Stock> stockList){
+
+
+    }
+def totalArrayList(Map params){
+    def sql = new Sql(dataSource)
+    List<Stock> stockList = new ArrayList<>()
+    sql.eachRow('SELECT * FROM ' + params.identityMaterialName + " WHERE del_flag=0") { row ->
+        Stock stock = new Stock()
+        stock.id = row[0]
+        stock.quantityNumber = row[1]
+        stock.delFlag = row[2]
+        stock.date = row[3]
+        stock.stockType = row[4]
+        stock.itemWithWeightAndUnit = row[5]
+        stock.item = Item.get(row[6])
+        stock.weight = Weight.get(row[7])
+        stockList.add(stock)
+    }
+    sql.close()
+}
+}
 
