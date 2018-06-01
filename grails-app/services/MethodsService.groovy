@@ -265,7 +265,21 @@ class MethodsService {
 return remainingStockList
     }
     def totalToRemainingStockList(List<Stock> stockList){
-
+        for (int i=0;i<stockList.size()-1;i++){
+            for (int j=i+1;j<stockList.size();j++){
+                if (stockList[i].itemWithWeightAndUnit==stockList[j].itemWithWeightAndUnit){
+                    if (stockList[i].stockType==stockList[j].stockType){
+                        stockList[i].stockType+=stockList[j].stockType
+                        stockList.remove(stockList[j])
+                    }
+                    else {
+                        stockList[i].stockType-=stockList[j].stockType
+                        stockList.remove(stockList[j])
+                    }
+                }
+            }
+        }
+        return stockList
 
     }
 def totalArrayList(Map params){
