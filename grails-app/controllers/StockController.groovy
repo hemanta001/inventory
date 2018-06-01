@@ -4,6 +4,7 @@ class StockController {
     def methodsService
     def remainingStockList(){
         def remainingStockList=methodsService.remainingStockList(params)
+        [stockRemainingQuantity:remainingStockList,identityMaterialName: params.identityMaterialName]
     }
     def create(){
         def materialInstance=methodsService.showMaterialForStock(params)
