@@ -260,21 +260,23 @@ class MethodsService {
     }
 
     def remainingStockList(Map params) {
-        def totalStockList=totalArrayList(params)
-        def remainingStockList=totalToRemainingStockList(totalStockList)
-return remainingStockList
+        def totalStockList = totalArrayList(params)
+        def remainingStockList = totalToRemainingStockList(totalStockList)
+        return remainingStockList
     }
-    def totalToRemainingStockList(List<Stock> stockList){
-        for (int i=0;i<stockList.size()-1;i++){
-            for (int j=i+1;j<stockList.size();j++){
-                if (stockList[i].itemWithWeightAndUnit==stockList[j].itemWithWeightAndUnit){
-                    if (stockList[i].stockType==stockList[j].stockType){
-                        stockList[i].stockType+=stockList[j].stockType
+
+    def totalToRemainingStockList(List<Stock> stockList) {
+        for (int i = 0; i < stockList.size() - 1; i++) {
+            for (int j = i + 1; j < stockList.size(); j++) {
+                if (stockList[i].itemWithWeightAndUnit == stockList[j].itemWithWeightAndUnit) {
+                    if (stockList[i].stockType == stockList[j].stockType) {
+                        stockList[i].quantityNumber = stockList[i].quantityNumber + stockList[j].quantityNumber
                         stockList.remove(stockList[j])
-                    }
-                    else {
-                        stockList[i].stockType-=stockList[j].stockType
+                        j--
+                    } else {
+                        stockList[i].quantityNumber = stockList[i].quantityNumber - stockList[j].quantityNumber
                         stockList.remove(stockList[j])
+                        j--
                     }
                 }
             }
@@ -282,22 +284,23 @@ return remainingStockList
         return stockList
 
     }
-def totalArrayList(Map params){
-    def sql = new Sql(dataSource)
-    List<Stock> stockList = new ArrayList<>()
-    sql.eachRow('SELECT * FROM ' + params.identityMaterialName + " WHERE del_flag=0") { row ->
-        Stock stock = new Stock()
-        stock.id = row[0]
-        stock.quantityNumber = row[1]
-        stock.delFlag = row[2]
-        stock.date = row[3]
-        stock.stockType = row[4]
-        stock.itemWithWeightAndUnit = row[5]
-        stock.item = Item.get(row[6])
-        stock.weight = Weight.get(row[7])
-        stockList.add(stock)
+
+    def totalArrayList(Map params) {
+        def sql = new Sql(dataSource)
+        List<Stock> stockList = new ArrayList<>()
+        sql.eachRow('SELECT * FROM ' + params.identityMaterialName + " WHERE del_flag=0") { row ->
+            Stock stock = new Stock()
+            stock.id = row[0]
+            stock.quantityNumber = row[1]
+            stock.delFlag = row[2]
+            stock.date = row[3]
+            stock.stockType = row[4]
+            stock.itemWithWeightAndUnit = row[5]
+            stock.item = Item.get(row[6])
+            stock.weight = Weight.get(row[7])
+            stockList.add(stock)
+        }
+        sql.close()
     }
-    sql.close()
-}
 }
 
