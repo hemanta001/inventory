@@ -4,6 +4,7 @@ class Stock {
     long quantityNumber
     String date
     String stockType
+    String itemWithWeightAndUnit
     boolean delFlag
     static constraints = {
 

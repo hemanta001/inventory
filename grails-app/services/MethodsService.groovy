@@ -27,7 +27,7 @@ class MethodsService {
     def createTable(String tableName) {
         def sql = new Sql(dataSource)
         // the sql script that creates a table
-        def createTableScript = "CREATE TABLE IF NOT EXISTS " + tableName + " (id BIGINT(20) NOT NULL  AUTO_INCREMENT,quantity_number BIGINT(20) NOT NULL,del_flag BIT(1) NOT NULL,date VARCHAR(255) NOT NULL,stock_type VARCHAR(50) NOT NULL,item_id BIGINT(20) NOT NULL,weight_id BIGINT(20) NOT NULL,FOREIGN KEY (item_id) REFERENCES item(id),FOREIGN KEY (weight_id) REFERENCES weight(id),PRIMARY KEY (id))"
+        def createTableScript = "CREATE TABLE IF NOT EXISTS " + tableName + " (id BIGINT(20) NOT NULL  AUTO_INCREMENT,quantity_number BIGINT(20) NOT NULL,del_flag BIT(1) NOT NULL,date VARCHAR(255) NOT NULL,stock_type VARCHAR(50) NOT NULL,item_with_weight_and_unit VARCHAR(255) NOT NULL,item_id BIGINT(20) NOT NULL,weight_id BIGINT(20) NOT NULL,FOREIGN KEY (item_id) REFERENCES item(id),FOREIGN KEY (weight_id) REFERENCES weight(id),PRIMARY KEY (id))"
         // execute the create table script
         sql.execute(createTableScript);
         // query MySQL for the details of the created table
@@ -186,9 +186,13 @@ class MethodsService {
         def id
         def createTableScript
         def array=[]
+        def itemName=Item.findByIdAndDelFlag(params.id,false).itemName
+        def weightQuantityUnit=Weight.findByIdAndDelFlag(params.weightId,false).weightQuantityUnit
+        def itemWithWeightAndUnit=weightQuantityUnit+" "+itemName
         if(!params.id){
+
         // the sql script that creates a table
-        createTableScript = "INSERT INTO " + params.identityMaterialName + " (item_id,weight_id,quantity_number,date,stock_type,del_flag ) VALUES ((SELECT id from item WHERE id='" + params.itemId + "' ),(SELECT id from weight WHERE id='" + params.weightId + "' ),'" + params.quantityNumber + "','" + params.date + "','" + params.stockType + "',0)"
+        createTableScript = "INSERT INTO " + params.identityMaterialName + " (item_id,weight_id,quantity_number,date,stock_type,item_with_weight_and_unit,del_flag ) VALUES ((SELECT id from item WHERE id='" + params.itemId + "' ),(SELECT id from weight WHERE id='" + params.weightId + "' ),'" + params.quantityNumber + "','" + params.date + "','" + params.stockType + "','"+itemWithWeightAndUnit+",0)"
         // execute the create table script
         def keys = sql.executeInsert(createTableScript);
         id = keys[0][0]
@@ -198,8 +202,9 @@ class MethodsService {
         array=[stock,params.identityMaterialName]
         return array}
         else{
+
             id=params.id as Long
-            createTableScript = "UPDATE "+params.identityMaterialName+" SET item_id = (SELECT id from item WHERE id=" + params.itemId + " ), weight_id= (SELECT id from weight WHERE id=" + params.weightId +"),quantity_number=" + params.quantityNumber+",date="+params.date +" WHERE id="+id
+            createTableScript = "UPDATE "+params.identityMaterialName+" SET item_id = (SELECT id from item WHERE id=" + params.itemId + " ), weight_id= (SELECT id from weight WHERE id=" + params.weightId +"),quantity_number=" + params.quantityNumber+",date="+params.date +",stock_type,item_with_weight_and_unit="+itemWithWeightAndUnit+" WHERE id="+id
             // execute the create table script
 sql.execute(createTableScript)
             Stock stock=showStock(params.identityMaterialName,id)

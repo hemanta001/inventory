@@ -40,6 +40,7 @@
                                         <th>Item</th>
                                         <th>Quantity No.</th>
                                         <th>Date</th>
+                                        <th>Stock Type</th>
 <th>Action</th>
                                     </tr>
                                     </thead>
@@ -52,6 +53,8 @@
                                         <td>${list.item.itemName}</td>
                                         <td>${list.quantityNumber}</td>
                                         <td>${list.date}</td>
+                                        <td>${list.stockType}</td>
+
                                         <td><g:link action="show" controller="stock" params="[identityMaterialName:materialInstance.identityMaterialName,stock:list.id]" >View</g:link></td>
                                     </tr>
                                 </g:each>
