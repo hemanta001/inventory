@@ -38,6 +38,7 @@
                             <th>Weight</th>
                             <th>Unit</th>
                             <th>Item</th>
+                            <th>Item(weight and unit)</th>
                             <th>Remaining Quantity</th>
                         </tr>
                         </thead>
@@ -48,6 +49,7 @@
                                 <td>${list.weight.weightQuantity}</td>
                                 <td>${list.weight.unit.unitName}</td>
                                 <td>${list.item.itemName}</td>
+                                <td>${list.itemWithWeightAndUnit}</td>
                                 <td>${list.quantityNumber}</td>
                             </tr>
                         </g:each>

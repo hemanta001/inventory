@@ -301,6 +301,8 @@ class MethodsService {
             stockList.add(stock)
         }
         sql.close()
+    return stockList
     }
+
 }
 
