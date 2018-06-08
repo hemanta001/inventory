@@ -1,6 +1,9 @@
 class Stock {
-    Weight weight
+    float weight
+    Unit unit
     Item item
+    long totalStockInNumber
+    long totalStockOutNumber
     long quantityNumber
     String date
     String stockType

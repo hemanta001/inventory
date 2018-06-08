@@ -9,7 +9,7 @@
 <div class="col-md-12 col-xs-12">
     <div class="x_panel">
         <div class="x_title">
-            <h2>Item <small>create</small><small><g:link action="list" controller="item" class="btn btn-success btn-xs">List</g:link></small></h2>
+            <h2>Item create<g:link action="list" controller="item" class="btn btn-success btn-xs">List</g:link></h2>
             <ul class="nav navbar-right panel_toolbox">
                 <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                 </li>

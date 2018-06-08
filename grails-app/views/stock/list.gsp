@@ -18,7 +18,7 @@
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="x_panel">
                             <div class="x_title">
-                                <h2>${materialInstance.materialName} <small>${stockType} List</small><small><g:link action="create" controller="stock" params="[stockType:stockType,identityMaterialName:materialInstance.identityMaterialName]" class="btn btn-success btn-xs">Add</g:link></small></h2>
+                                <h2>${materialInstance.materialName}-${itemInstance.itemName} ${stockType} List<g:link action="create" controller="stock" params="[stockType:stockType,identityMaterialName:materialInstance.identityMaterialName]" class="btn btn-success btn-xs">Add</g:link></h2>
                                 <ul class="nav navbar-right panel_toolbox">
                                     <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                                     </li>
@@ -35,9 +35,7 @@
                                     <thead>
                                     <tr>
                                         <th>SN</th>
-                                        <th>Weight</th>
-                                        <th>Unit</th>
-                                        <th>Item</th>
+                                        <th>weight</th>
                                         <th>Quantity No.</th>
                                         <th>Date</th>
                                         <th>Stock Type</th>
@@ -48,9 +46,7 @@
                                 <g:each in="${stockList}" var="list" status="i">
                                     <tr>
                                         <td>${i+1}</td>
-                                        <td>${list.weight.weightQuantity}</td>
-                                        <td>${list.weight.unit.unitName}</td>
-                                        <td>${list.item.itemName}</td>
+                                        <td>${list.weight+" "+list.unit.unitName}</td>
                                         <td>${list.quantityNumber}</td>
                                         <td>${list.date}</td>
                                         <td>${list.stockType}</td>

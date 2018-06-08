@@ -4,7 +4,7 @@ class StockController {
     def methodsService
     def remainingStockList(){
         def remainingStockList=methodsService.remainingStockList(params)
-        [stockRemainingQuantity:remainingStockList,identityMaterialName: params.identityMaterialName]
+        [stockRemainingQuantity:remainingStockList,identityMaterialName: params.identityMaterialName,identityItemName:params.identityItemName]
     }
     def create(){
         def materialInstance=methodsService.showMaterialForStock(params)
@@ -28,7 +28,7 @@ redirect(action: "show",params: [identityMaterialName: totalArray[1],stock: tota
     }
     def list(){
         def stockList=methodsService.listOfStock(params)
-        [stockList:stockList,materialInstance:Material.findByDelFlagAndIdentityMaterialName(false,params.identityMaterialName),stockType:params.stockType]
+        [stockList:stockList,itemInstance:Item.findByDelFlagAndIdentityItemName(false,params.identityItemName),materialInstance:Material.findByDelFlagAndIdentityMaterialName(false,params.identityMaterialName),stockType:params.stockType]
     }
     def delete(){
         methodsService.deleteStock(params)

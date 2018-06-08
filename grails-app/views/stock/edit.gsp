@@ -16,7 +16,7 @@
 <div class="col-md-12 col-xs-12">
     <div class="x_panel">
         <div class="x_title">
-            <h2>${materialInstance.materialName} <small>${stockInstance.stockType} edit</small><small><g:link action="create" controller="stock" params="[stockType:stockInstance.stockType,identityMaterialName:materialInstance.identityMaterialName]" class="btn btn-success btn-xs">Add</g:link></small><small><g:link action="list" controller="stock" params="[stockType:stockInstance.stockType,identityMaterialName:materialInstance.identityMaterialName]" class="btn btn-success btn-xs">List</g:link></small></h2>
+            <h2>${materialInstance.materialName} ${stockInstance.stockType} edit<g:link action="create" controller="stock" params="[stockType:stockInstance.stockType,identityMaterialName:materialInstance.identityMaterialName]" class="btn btn-success btn-xs">Add</g:link><g:link action="list" controller="stock" params="[stockType:stockInstance.stockType,identityMaterialName:materialInstance.identityMaterialName]" class="btn btn-success btn-xs">List</g:link></h2>
             <ul class="nav navbar-right panel_toolbox">
                 <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                 </li>

@@ -9,7 +9,7 @@
 <div class="col-md-12 col-xs-12">
     <div class="x_panel">
         <div class="x_title">
-            <h2>${materialInstance.materialName}<small>${stockType} add</small><small><g:link action="list" controller="stock" params="[stockType:stockType,identityMaterialName:materialInstance.identityMaterialName]" class="btn btn-success btn-xs">List</g:link></small></h2>
+            <h2>${materialInstance.materialName}${stockType} add<g:link action="list" controller="stock" params="[stockType:stockType,identityMaterialName:materialInstance.identityMaterialName]" class="btn btn-success btn-xs">List</g:link></h2>
             <ul class="nav navbar-right panel_toolbox">
                 <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                 </li>
@@ -22,13 +22,21 @@
 <g:hiddenField name="identityMaterialName" value="${materialInstance.identityMaterialName}"></g:hiddenField>
                 <g:hiddenField name="stockType" value="${stockType}"></g:hiddenField>
 
+                <div class="container">
                 <g:render template="form"></g:render>
+                </div>
                 <div class="form-group">
                     <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
                         <button type="reset" class="btn btn-primary">Reset</button>
-                        <g:submitButton name="save" value="Submit" class="btn btn-success">Submit</g:submitButton>
+                        <g:submitButton name="save" value="Submit" class="btn btn-success" onclick="valueAdd();">Submit</g:submitButton>
                     </div>
                 </div>
+                <script>
+                    function valueAdd() {
+
+                        document.getElementById("nepaliDateReal").value=document.getElementById("nepaliDate3").value;
+                    }
+                </script>
 
             %{--<div class="form-group">--}%
                     %{--<label class="control-label col-md-3 col-sm-3 col-xs-12">Disabled Input </label>--}%

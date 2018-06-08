@@ -27,13 +27,23 @@ class MethodsService {
     def createTable(String tableName) {
         def sql = new Sql(dataSource)
         // the sql script that creates a table
-        def createTableScript = "CREATE TABLE IF NOT EXISTS " + tableName + " (id BIGINT(20) NOT NULL  AUTO_INCREMENT,quantity_number BIGINT(20) NOT NULL,del_flag BIT(1) NOT NULL,date VARCHAR(255) NOT NULL,stock_type VARCHAR(50) NOT NULL,item_with_weight_and_unit VARCHAR(255) NOT NULL,item_id BIGINT(20) NOT NULL,weight_id BIGINT(20) NOT NULL,FOREIGN KEY (item_id) REFERENCES item(id),FOREIGN KEY (weight_id) REFERENCES weight(id),PRIMARY KEY (id))"
+        def createTableScript = "CREATE TABLE IF NOT EXISTS " + tableName + " (id BIGINT(20) NOT NULL  AUTO_INCREMENT,quantity_number BIGINT(20) NOT NULL,del_flag BIT(1) NOT NULL,date VARCHAR(255) NOT NULL,stock_type VARCHAR(50) NOT NULL,item_with_weight_and_unit VARCHAR(255) NOT NULL,weight FLOAT(20) NOT NULL,item_id BIGINT(20) NOT NULL,unit_id BIGINT(20) NOT NULL,FOREIGN KEY (item_id) REFERENCES item(id),FOREIGN KEY(unit_id) REFERENCES unit(id),PRIMARY KEY (id))"
         // execute the create table script
         sql.execute(createTableScript);
         // query MySQL for the details of the created table
         sql.eachRow('DESCRIBE ' + tableName) { row ->
             println "Fielld = ${row[0]}, type = ${row[1]}"
         }
+        // close connection
+        sql.close()
+    }
+
+    def deleteTable(String tableName) {
+        def sql = new Sql(dataSource)
+        // the sql script that deletes a table
+        def deleteTableScript =  "DROP TABLE "+tableName
+        // execute the deletes table script
+        sql.execute(deleteTableScript);
         // close connection
         sql.close()
     }
@@ -47,6 +57,7 @@ class MethodsService {
         def material = Material.findByDelFlagAndIdentityMaterialName(false, identityMaterialName)
         material.delFlag = true
         material.save(flush: true)
+        deleteTable(material.identityMaterialName)
     }
 
     def listOfMaterials() {
@@ -86,43 +97,6 @@ class MethodsService {
     def listOfItem() {
         def itemList = Item.findAllByDelFlag(false)
         return itemList
-    }
-
-    def saveWeight(Map params) {
-        if (params.identityWeightQuantityUnit) {
-            def weight = Weight.findByDelFlagAndIdentityWeightQuantityUnit(false, params.identityWeightQuantityUnit)
-            weight.weightQuantity = params.weightQuantity as float
-            weight.unit = Unit.findByDelFlagAndId(false, params.unitId)
-            weight.weightQuantityUnit = weight.weightQuantity + " " + weight.unit.unitName
-            weight.identityWeightQuantityUnit = convertToOriginalUrl(weight.weightQuantityUnit)
-            weight.save(flush: true)
-            return weight.identityWeightQuantityUnit
-        } else {
-            def weight = new Weight()
-            weight.weightQuantity = params.weightQuantity as float
-            weight.unit = Unit.findByDelFlagAndId(false, params.unitId)
-            weight.weightQuantityUnit = weight.weightQuantity + " " + weight.unit.unitName
-            weight.identityWeightQuantityUnit = convertToOriginalUrl(weight.weightQuantityUnit)
-            weight.delFlag = false
-            weight.save(flush: true)
-            return weight.identityWeightQuantityUnit
-        }
-    }
-
-    def showWeight(String identityWeightQuantityUnit) {
-        def weight = Weight.findByDelFlagAndIdentityWeightQuantityUnit(false, identityWeightQuantityUnit)
-        return weight
-    }
-
-    def deleteWeight(String identityWeightQuantityUnit) {
-        def weight = Weight.findByDelFlagAndIdentityWeightQuantityUnit(false, identityWeightQuantityUnit)
-        weight.delFlag = true
-        weight.save(flush: true)
-    }
-
-    def listOfWeight() {
-        def weightList = Weight.findAllByDelFlag(false)
-        return weightList
     }
 
     def saveUnit(Map params) {
@@ -187,12 +161,14 @@ class MethodsService {
         def createTableScript
         def array = []
         def itemName = Item.findByIdAndDelFlag(params.itemId, false).itemName
-        def weightQuantityUnit = Weight.findByIdAndDelFlag(params.weightId, false).weightQuantityUnit
-        def itemWithWeightAndUnit = weightQuantityUnit + " " + itemName
+        def unitName = Unit.findByIdAndDelFlag(params.unitId, false).unitName
+
+        def weightQuantity = params.weight
+        def itemWithWeightAndUnit = weightQuantity + " " +unitName+" "+ itemName
         if (!params.id) {
 
             // the sql script that creates a table
-            createTableScript = "INSERT INTO " + params.identityMaterialName + " (item_id,weight_id,quantity_number,date,stock_type,item_with_weight_and_unit,del_flag ) VALUES ((SELECT id from item WHERE id='" + params.itemId + "' ),(SELECT id from weight WHERE id='" + params.weightId + "' ),'" + params.quantityNumber + "','" + params.date + "','" + params.stockType + "','" + itemWithWeightAndUnit + "',0)"
+            createTableScript = "INSERT INTO " + params.identityMaterialName + " (item_id,unit_id,weight,quantity_number,date,stock_type,item_with_weight_and_unit,del_flag ) VALUES ((SELECT id from item WHERE id='" + params.itemId + "' ),(SELECT id from unit WHERE id='" + params.unitId + "' ),'" + params.weight + "','" + params.quantityNumber + "','" + params.date + "','" + params.stockType + "','" + itemWithWeightAndUnit + "',0)"
             // execute the create table script
             def keys = sql.executeInsert(createTableScript);
             id = keys[0][0]
@@ -203,7 +179,7 @@ class MethodsService {
             return array
         } else {
             id = params.id as Long
-            createTableScript = "UPDATE " + params.identityMaterialName + " SET item_id = (SELECT id from item WHERE id=" + params.itemId + " ), weight_id= (SELECT id from weight WHERE id=" + params.weightId + "), quantity_number='" + params.quantityNumber + "', item_with_weight_and_unit='" + itemWithWeightAndUnit + "',date='" + params.date + "'  WHERE id=" + id
+            createTableScript = "UPDATE " + params.identityMaterialName + " SET item_id = (SELECT id from item WHERE id=" + params.itemId + " ),unit_id = (SELECT id from unit WHERE id=" + params.unitId + " ), weight='"+ params.weight +"', quantity_number='" + params.quantityNumber + "', item_with_weight_and_unit='" + itemWithWeightAndUnit + "',date='" + params.date + "'  WHERE id=" + id
             // execute the create table script
             sql.execute(createTableScript)
             Stock stock = showStock(params.identityMaterialName, id)
@@ -224,8 +200,10 @@ class MethodsService {
             stock.date = row[3]
             stock.stockType = row[4]
             stock.itemWithWeightAndUnit = row[5]
-            stock.item = Item.get(row[6])
-            stock.weight = Weight.get(row[7])
+            stock.weight = row[6]
+            stock.item = Item.get(row[7])
+            stock.unit = Unit.get(row[8])
+
         }
         sql.close()
         return stock
@@ -233,8 +211,9 @@ class MethodsService {
 
     def listOfStock(Map params) {
         def sql = new Sql(dataSource)
+        def itemId=Item.findByDelFlagAndIdentityItemName(false,params.identityItemName).id
         List<Stock> stockList = new ArrayList<>()
-        sql.eachRow('SELECT * FROM ' + params.identityMaterialName + " WHERE del_flag=0") { row ->
+        sql.eachRow('SELECT * FROM ' + params.identityMaterialName + " WHERE del_flag=0 and item_id="+itemId) { row ->
             Stock stock = new Stock()
             stock.id = row[0]
             stock.quantityNumber = row[1]
@@ -242,8 +221,9 @@ class MethodsService {
             stock.date = row[3]
             stock.stockType = row[4]
             stock.itemWithWeightAndUnit = row[5]
-            stock.item = Item.get(row[6])
-            stock.weight = Weight.get(row[7])
+            stock.weight = row[6]
+            stock.item = Item.get(row[7])
+            stock.unit = Unit.get(row[8])
             if (stock.stockType.equalsIgnoreCase(params.stockType)) {
                 stockList.add(stock)
             }
@@ -267,17 +247,28 @@ class MethodsService {
 
     def totalToRemainingStockList(List<Stock> stockList) {
         for (int i = 0; i < stockList.size() - 1; i++) {
+            if(stockList[i].stockType == "stock-in"){
+                stockList[i].totalStockInNumber=stockList[i].quantityNumber
+                stockList[i].totalStockOutNumber=0
+            }
+            else{
+                stockList[i].totalStockOutNumber=stockList[i].quantityNumber
+                stockList[i].totalStockInNumber=0
+            }
             for (int j = i + 1; j < stockList.size(); j++) {
+                if(stockList[j].stockType == "stock-in"){
+                    stockList[j].totalStockInNumber=stockList[j].quantityNumber
+                    stockList[j].totalStockOutNumber=0
+                }
+                else{
+                    stockList[j].totalStockOutNumber=stockList[j].quantityNumber
+                    stockList[j].totalStockInNumber=0
+                }
                 if (stockList[i].itemWithWeightAndUnit == stockList[j].itemWithWeightAndUnit) {
-                    if (stockList[i].stockType == stockList[j].stockType) {
-                        stockList[i].quantityNumber = stockList[i].quantityNumber + stockList[j].quantityNumber
-                        stockList.remove(stockList[j])
-                        j--
-                    } else {
-                        stockList[i].quantityNumber = stockList[i].quantityNumber - stockList[j].quantityNumber
-                        stockList.remove(stockList[j])
-                        j--
-                    }
+                    stockList[i].totalStockInNumber+=stockList[j].totalStockInNumber
+                    stockList[i].totalStockOutNumber+=stockList[j].totalStockOutNumber
+                    stockList.remove(stockList[j])
+                    j--
                 }
             }
         }
@@ -287,8 +278,9 @@ class MethodsService {
 
     def totalArrayList(Map params) {
         def sql = new Sql(dataSource)
+        def itemId=Item.findByDelFlagAndIdentityItemName(false,params.identityItemName).id
         List<Stock> stockList = new ArrayList<>()
-        sql.eachRow('SELECT * FROM ' + params.identityMaterialName + " WHERE del_flag=0") { row ->
+        sql.eachRow('SELECT * FROM ' + params.identityMaterialName + " WHERE del_flag=0 and item_id="+itemId) { row ->
             Stock stock = new Stock()
             stock.id = row[0]
             stock.quantityNumber = row[1]
@@ -296,13 +288,12 @@ class MethodsService {
             stock.date = row[3]
             stock.stockType = row[4]
             stock.itemWithWeightAndUnit = row[5]
-            stock.item = Item.get(row[6])
-            stock.weight = Weight.get(row[7])
+            stock.weight = row[6]
+            stock.item = Item.get(row[7])
+            stock.unit = Unit.get(row[8])
             stockList.add(stock)
         }
         sql.close()
     return stockList
     }
-
 }
-

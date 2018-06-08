@@ -10,9 +10,20 @@
 
     <title>Jwellery Shop</title>
 
+    <script src="${resource(dir: 'js', file: 'jquery.min.js')}" type="text/javascript"
+            charset="utf-8"></script>
+    <!-- Bootstrap -->
+    <script src="${resource(dir: 'js', file: 'bootstrap.min.js')}" type="text/javascript"
+            charset="utf-8"></script>
+
+    <script src="${resource(dir: 'js', file: 'nepali.datepicker.v2.2.min.js')}" type="text/javascript"
+            charset="utf-8"></script>
 
     <!-- Bootstrap -->
     <link rel="stylesheet" href="${resource(dir: 'css', file: 'bootstrap.min.css')}" type="text/css"
+          media="all"/>
+
+    <link rel="stylesheet" href="${resource(dir: 'css', file: 'nepali.datepicker.v2.2.min.css')}" type="text/css"
           media="all"/>
     <!-- Font Awesome -->
     <link rel="stylesheet" href="${resource(dir: 'css', file: 'font-awesome.min.css')}" type="text/css"
@@ -90,15 +101,6 @@
 
                                         </ul>
                                     </li>
-                                    <li><a>Weight<span class="fa fa-chevron-down"></span></a>
-                                        <ul class="nav child_menu">
-                                            <li><g:link action="create" controller="weight">Add</g:link>
-                                            </li>
-                                            <li><g:link action="list" controller="weight">List</g:link>
-                                            </li>
-
-                                        </ul>
-                                    </li>
 
                                 </ul>
 
@@ -110,8 +112,19 @@
                                         <ul class="nav child_menu">
                                             <li><g:link action="create" params="[stockType:'stock-in',identityMaterialName:list.identityMaterialName]" controller="stock">Add</g:link>
                                             </li>
-                                            <li><g:link action="list" params="[stockType:'stock-in',identityMaterialName:list.identityMaterialName]" controller="stock">List</g:link>
+                                            <li><a>List<span class="fa fa-chevron-down"></span></a>
+
+                                                <ul class="nav child_menu">
+                                                <g:each in="${Item.findAllByDelFlag(false)}" var="itemList">
+
+                                                    <li><g:link action="list" params="[stockType:'stock-in',identityMaterialName:list.identityMaterialName,identityItemName:itemList.identityItemName]" controller="stock">${itemList.itemName}</g:link>
+                                                    </li>
+                                                </g:each>
+
+                                                </ul>
                                             </li>
+
+
 
                                         </ul>
                                     </li>
@@ -125,8 +138,18 @@
                                             <ul class="nav child_menu">
                                                 <li><g:link action="create" params="[stockType:'stock-out',identityMaterialName:list.identityMaterialName]" controller="stock">Add</g:link>
                                                 </li>
-                                                <li><g:link action="list" params="[stockType:'stock-out',identityMaterialName:list.identityMaterialName]" controller="stock">List</g:link>
+                                                <li><a>List<span class="fa fa-chevron-down"></span></a>
+
+                                                    <ul class="nav child_menu">
+                                                        <g:each in="${Item.findAllByDelFlag(false)}" var="itemList">
+
+                                                            <li><g:link action="list" params="[stockType:'stock-out',identityMaterialName:list.identityMaterialName,identityItemName:itemList.identityItemName]" controller="stock">${itemList.itemName}</g:link>
+                                                            </li>
+                                                        </g:each>
+
+                                                    </ul>
                                                 </li>
+
 
                                             </ul>
                                         </li>
@@ -137,10 +160,17 @@
                                 <ul class="nav child_menu">
                                     <g:each in="${Material.findAllByDelFlag(false)}" var="list">
                                         <li><a>${list.materialName}<span class="fa fa-chevron-down"></span></a>
-                                            <ul class="nav child_menu">
 
-                                                <li><g:link action="remainingStockList" params="[identityMaterialName:list.identityMaterialName]" controller="stock">List</g:link>
-                                                </li>
+                                                    <ul class="nav child_menu">
+                                                        <g:each in="${Item.findAllByDelFlag(false)}" var="itemList">
+
+                                                            <li><g:link action="remainingStockList" params="[identityMaterialName:list.identityMaterialName,identityItemName:itemList.identityItemName]" controller="stock">${itemList.itemName}</g:link>
+                                                            </li>
+                                                        </g:each>
+
+
+
+
 
                                             </ul>
                                         </li>
@@ -366,11 +396,7 @@
     </div>
 </div>
 <!-- jQuery -->
-<script src="${resource(dir: 'js', file: 'jquery.min.js')}" type="text/javascript"
-        charset="utf-8"></script>
-<!-- Bootstrap -->
-<script src="${resource(dir: 'js', file: 'bootstrap.min.js')}" type="text/javascript"
-        charset="utf-8"></script>
+
 <!-- bootstrap-progressbar -->
 <script src="${resource(dir: 'js', file: 'bootstrap-progressbar.min.js')}" type="text/javascript"
         charset="utf-8"></script>

@@ -18,7 +18,7 @@
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="x_panel">
                 <div class="x_title">
-                    <h2>${identityMaterialName} <small>Stock remaining</small></h2>
+                    <h2>${identityMaterialName}-${identityItemName} Stock remaining</h2>
                     <ul class="nav navbar-right panel_toolbox">
                         <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                         </li>
@@ -35,10 +35,9 @@
                         <thead>
                         <tr>
                             <th>SN</th>
-                            <th>Weight</th>
-                            <th>Unit</th>
-                            <th>Item</th>
-                            <th>Item(weight and unit)</th>
+                            <th>weight</th>
+                            <th>total stock-in</th>
+                            <th>total stock-out</th>
                             <th>Remaining Quantity</th>
                         </tr>
                         </thead>
@@ -46,11 +45,10 @@
                         <g:each in="${stockRemainingQuantity}" var="list" status="i">
                             <tr>
                                 <td>${i+1}</td>
-                                <td>${list.weight.weightQuantity}</td>
-                                <td>${list.weight.unit.unitName}</td>
-                                <td>${list.item.itemName}</td>
-                                <td>${list.itemWithWeightAndUnit}</td>
-                                <td>${list.quantityNumber}</td>
+                                <td>${list.weight+" "+list.unit.unitName}</td>
+                                <td>${list.totalStockInNumber}</td>
+                                <td>${list.totalStockOutNumber}</td>
+                                <td>${list.totalStockInNumber-list.totalStockOutNumber}</td>
                             </tr>
                         </g:each>
                         </tbody>

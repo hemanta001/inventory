@@ -9,8 +9,8 @@
 <div class="col-md-12 col-xs-12">
     <div class="x_panel">
         <div class="x_title">
-            <h2>${materialInstance.materialName} <small>${stockInstance.stockType} show</small><small><g:link action="create" controller="stock" params="[stockType:stockInstance.stockType,identityMaterialName:materialInstance.identityMaterialName]" class="btn btn-success btn-xs">Add</g:link></small>
-                <small><g:link action="list" controller="stock" params="[stockType:stockInstance.stockType,identityMaterialName:materialInstance.identityMaterialName]" class="btn btn-success btn-xs">List</g:link></small></h2>
+            <h2>${materialInstance.materialName} ${stockInstance.stockType} show<g:link action="create" controller="stock" params="[stockType:stockInstance.stockType,identityMaterialName:materialInstance.identityMaterialName]" class="btn btn-success btn-xs">Add</g:link>
+                <g:link action="list" controller="stock" params="[stockType:stockInstance.stockType,identityMaterialName:materialInstance.identityMaterialName]" class="btn btn-success btn-xs">List</g:link></h2>
             <ul class="nav navbar-right panel_toolbox">
                 <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                 </li>
@@ -24,7 +24,7 @@
             <form class="form-horizontal form-label-left">
 
                 <div class="form-group">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Select Item</label>
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Item</label>
                     <div class="col-md-9 col-sm-9 col-xs-12">
                         <g:textField name="itemId" class="form-control" value="${stockInstance?.item?.itemName}" disabled="disabled"/>
                     </div>
@@ -32,7 +32,7 @@
                 <div class="form-group">
                     <label class="control-label col-md-3 col-sm-3 col-xs-12">Weight</label>
                     <div class="col-md-9 col-sm-9 col-xs-12">
-                        <g:textField name="weightId"  class="form-control" value="${stockInstance?.weight?.weightQuantityUnit}" disabled="disabled"/>
+                        <g:textField name="weight"  class="form-control" value="${stockInstance?.weight+" "+stockInstance?.unit.unitName}" disabled="disabled"/>
                     </div>
                 </div>
                 <div class="form-group">
@@ -50,8 +50,8 @@
 
                 <div class="form-group">
                     <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
-                        <small><g:link action="delete" controller="stock" params="[identityMaterialName:materialInstance.identityMaterialName,stock:stockInstance.id,stockType: stockInstance.stockType]" class="btn btn-danger btn-xs">Delete</g:link></small>
-                        <small><g:link action="edit" controller="stock" params="[identityMaterialName:materialInstance.identityMaterialName,stock:stockInstance.id]" class="btn btn-success btn-xs">Edit</g:link></small>
+                        <g:link action="delete" controller="stock" params="[identityMaterialName:materialInstance.identityMaterialName,stock:stockInstance.id,stockType: stockInstance.stockType]" class="btn btn-danger btn-xs">Delete</g:link>
+                        <g:link action="edit" controller="stock" params="[identityMaterialName:materialInstance.identityMaterialName,stock:stockInstance.id]" class="btn btn-success btn-xs">Edit</g:link>
                     </div>
                 </div>
 
