@@ -4,3 +4,6 @@
         <g:textField name="itemName" class="form-control" placeholder="eg.ring,bracelet etc" value="${item?.itemName}"/>
     </div>
 </div>
+<style>
+#success_message{ display: none;}
+</style>

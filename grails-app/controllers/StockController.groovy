@@ -12,6 +12,13 @@ class StockController {
     }
     def save(){
 def totalArray=methodsService.saveStock(params)
+        if(params.id){
+            flash.message="successfully updated"
+        }
+        else{
+            flash.message="successfully added"
+
+        }
 redirect(action: "show",params: [identityMaterialName: totalArray[1],stock: totalArray[0].id])
     }
     def show(){
@@ -31,7 +38,9 @@ redirect(action: "show",params: [identityMaterialName: totalArray[1],stock: tota
         [stockList:stockList,itemInstance:Item.findByDelFlagAndIdentityItemName(false,params.identityItemName),materialInstance:Material.findByDelFlagAndIdentityMaterialName(false,params.identityMaterialName),stockType:params.stockType]
     }
     def delete(){
+
         methodsService.deleteStock(params)
-        redirect(action: "list",params: [stockType:params.stockType,identityMaterialName:params.identityMaterialName])
+        flash.message="successfully deleted"
+        redirect(action: "list",params: [stockType:params.stockType,identityMaterialName:params.identityMaterialName,identityItemName:params.identityItemName])
     }
 }

@@ -9,7 +9,7 @@
 <div class="col-md-12 col-xs-12">
     <div class="x_panel">
         <div class="x_title">
-            <h2>${materialInstance.materialName}${stockType} add<g:link action="list" controller="stock" params="[stockType:stockType,identityMaterialName:materialInstance.identityMaterialName]" class="btn btn-success btn-xs">List</g:link></h2>
+            <h2>${materialInstance.materialName}${stockType} add</h2>
             <ul class="nav navbar-right panel_toolbox">
                 <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                 </li>
@@ -18,7 +18,7 @@
         </div>
         <div class="x_content">
             <br />
-            <g:form action="save" controller="stock" class="form-horizontal form-label-left">
+            <form action="/stock/save" class="form-horizontal form-label-left" id="stock_form">
 <g:hiddenField name="identityMaterialName" value="${materialInstance.identityMaterialName}"></g:hiddenField>
                 <g:hiddenField name="stockType" value="${stockType}"></g:hiddenField>
 
@@ -313,7 +313,7 @@
 
                 %{--<div class="ln_solid"></div>--}%
 
-            </g:form>
+            </form>
         </div>
     </div>
 </div>

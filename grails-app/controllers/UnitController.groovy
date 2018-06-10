@@ -1,5 +1,18 @@
 class UnitController {
     def methodsService
+    def checkUnit(){
+        try{
+            def isAvailable=methodsService.checkUnit(params)
+            render(contentType: 'text/json') {
+                [
+                        "valid": isAvailable,
+                ]
+            }
+        }
+        catch (Exception e){
+
+        }
+    }
     def create(){
 
     }
@@ -9,6 +22,13 @@ class UnitController {
     }
     def save(){
         def unitName=methodsService.saveUnit(params)
+        if(params.identityUnitName){
+            flash.message="successfully updated"
+        }
+        else{
+            flash.message="successfully added"
+
+        }
         redirect(action: "show",params:[identityUnitName: unitName])
     }
     def show(){

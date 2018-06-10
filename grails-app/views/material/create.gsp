@@ -20,7 +20,7 @@
         </div>
         <div class="x_content">
             <br />
-            <g:form action="save" controller="material" class="form-horizontal form-label-left">
+            <form action="/material/save"  class="form-horizontal form-label-left" id="material_form">
 
                 <g:render template="form"></g:render>
                 <div class="form-group">
@@ -305,11 +305,69 @@
 
                 %{--<div class="ln_solid"></div>--}%
 
-            </g:form>
+            </form>
+
         </div>
     </div>
 </div>
 
+<script>
+    $(document).ready(function() {
+        $('#material_form').bootstrapValidator({
+            // To use feedback icons, ensure that you use Bootstrap v3.1.0 or later
+            feedbackIcons: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+                materialName: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Please supply material'
+                        },
+                        remote: {
+                            url: "${createLink(controller:'material', action:'checkMaterial')}",
+                            // Send { username: 'its value', email: 'its value' } to the back-end
+                            data: function(validator, $field, value) {
+                                return {
+                                    materialName: validator.getFieldElements('materialName').val()
+
+                                };
+
+                            },
+                            message: 'The material is already in use',
+                            type: 'POST'
+                        }
+
+                    }
+                }
+
+
+            }
+        })
+            .on('success.form.bv', function(e) {
+                $('#success_message').slideDown({ opacity: "show" }, "slow") // Do something ...
+                $('#material_form').data('bootstrapValidator').resetForm();
+
+                // Prevent form submission
+                e.preventDefault();
+
+                // Get the form instance
+                var $form = $(e.target);
+
+                // Get the BootstrapValidator instance
+                var bv = $form.data('bootstrapValidator');
+
+                // Use Ajax to submit form data
+                $.post($form.attr('action'), $form.serialize(), function(result) {
+                    console.log(result);
+                }, 'json');
+            });
+    });
+
+
+</script>
 
 </body>
 </html>

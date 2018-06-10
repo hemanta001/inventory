@@ -1,8 +1,19 @@
-import groovy.sql.Sql
 
 class MaterialController {
     def methodsService
+    def checkMaterial(){
+        try{
+            def isAvailable=methodsService.checkMaterial(params)
+            render(contentType: 'text/json') {
+                [
+                        "valid": isAvailable,
+                ]
+            }
+        }
+        catch (Exception e){
 
+        }
+    }
 def table(){
 
 }
@@ -12,6 +23,13 @@ def table(){
     }
     def save(){
         def materialName=methodsService.saveMaterial(params)
+        if(params.identityMaterialName){
+            flash.message="successfully updated"
+        }
+        else{
+            flash.message="successfully added"
+
+        }
         redirect(action: "show",params: [ identityMaterialName: materialName])
     }
     def show(){

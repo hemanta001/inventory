@@ -4,3 +4,6 @@
         <g:textField name="unitName" class="form-control" placeholder="eg.mg,gm etc" value="${unit?.unitName}"/>
     </div>
 </div>
+<style>
+#success_message{ display: none;}
+</style>

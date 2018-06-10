@@ -27,7 +27,7 @@
         </div>
         <div class="x_content">
             <br />
-            <g:form action="save" controller="item" class="form-horizontal form-label-left">
+            <form action="/item/save" class="form-horizontal form-label-left" id="item_form">
                 <g:hiddenField name="identityItemName" value="${item?.identityItemName}"></g:hiddenField>
                 <g:render template="form"></g:render>
                 <div class="form-group">
@@ -312,10 +312,59 @@
 
             %{--<div class="ln_solid"></div>--}%
 
-            </g:form>
+            </form>
         </div>
     </div>
 </div>
+<script>
+    $(document).ready(function() {
+        $('#item_form').bootstrapValidator({
+            // To use feedback icons, ensure that you use Bootstrap v3.1.0 or later
+            feedbackIcons: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+
+                        remote: {
+                            url: "${createLink(controller:'item', action:'checkItem')}",
+                            // Send { username: 'its value', email: 'its value' } to the back-end
+                            data: function(validator, $field, value) {
+                                return {
+                                    itemName: validator.getFieldElements('itemName').val()
+
+                                };
+
+                            },
+                            message: 'The item is already in use',
+                            type: 'POST'
+                        }
+
+
+
+        })
+            .on('success.form.bv', function(e) {
+                $('#success_message').slideDown({ opacity: "show" }, "slow") // Do something ...
+                $('#item_form').data('bootstrapValidator').resetForm();
+
+                // Prevent form submission
+                e.preventDefault();
+
+                // Get the form instance
+                var $form = $(e.target);
+
+                // Get the BootstrapValidator instance
+                var bv = $form.data('bootstrapValidator');
+
+                // Use Ajax to submit form data
+                $.post($form.attr('action'), $form.serialize(), function(result) {
+                    console.log(result);
+                }, 'json');
+            });
+    });
+
+
+</script>
 
 </body>
 </html>

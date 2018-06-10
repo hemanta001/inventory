@@ -1,5 +1,18 @@
 class ItemController {
     def methodsService
+    def checkItem(){
+        try{
+            def isAvailable=methodsService.checkItem(params)
+            render(contentType: 'text/json') {
+                [
+                        "valid": isAvailable,
+                ]
+            }
+        }
+        catch (Exception e){
+
+        }
+    }
     def create(){
 
     }
@@ -9,6 +22,13 @@ class ItemController {
     }
     def save(){
         def itemName=methodsService.saveItem(params)
+        if(params.identityItemName){
+        flash.message="successfully updated"
+        }
+        else{
+            flash.message="successfully added"
+
+        }
         redirect(action: "show",params:[identityItemName: itemName])
     }
     def show(){

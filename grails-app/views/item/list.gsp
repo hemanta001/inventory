@@ -27,6 +27,7 @@
                                 </ul>
                                 <div class="clearfix"></div>
                             </div>
+                            <div class="col-sm-12" style="color: darkred">${flash.message}</div>
 
                             <div class="x_content">
 

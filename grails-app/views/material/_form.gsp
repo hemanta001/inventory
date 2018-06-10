@@ -4,3 +4,6 @@
         <g:textField name="materialName" class="form-control" placeholder="eg.gold,silver etc" value="${material?.materialName}"/>
     </div>
 </div>
+<style>
+#success_message{ display: none;}
+</style>

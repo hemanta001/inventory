@@ -10,9 +10,8 @@ div#ndp-nepali-box {
     position: absolute;
     z-index: 9999;
     padding: 1px;
-    /*margin-top: 1px*/
-    top: 290px!important;
-    left: 775px!important;
+    margin-top: 1px
+
 }
 
 div#npd-table-div {

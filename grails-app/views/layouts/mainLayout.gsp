@@ -22,6 +22,8 @@
     <!-- Bootstrap -->
     <link rel="stylesheet" href="${resource(dir: 'css', file: 'bootstrap.min.css')}" type="text/css"
           media="all"/>
+    <link rel="stylesheet" href="${resource(dir: 'css', file: 'bootstrapvaliator.min.css')}" type="text/css"
+          media="all"/>
 
     <link rel="stylesheet" href="${resource(dir: 'css', file: 'nepali.datepicker.v2.2.min.css')}" type="text/css"
           media="all"/>
@@ -411,6 +413,8 @@
 <script src="${resource(dir: 'js', file: 'dataTables.responsive.min.js')}" type="text/javascript"
         charset="utf-8"></script>
 <script src="${resource(dir: 'js', file: 'dataTables.scroller.min.js')}" type="text/javascript"
+        charset="utf-8"></script>
+<script src="${resource(dir: 'js', file: 'bootstrapvalidator.min.js')}" type="text/javascript"
         charset="utf-8"></script>
 
 <!-- Custom Theme Scripts -->

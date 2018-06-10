@@ -25,8 +25,7 @@
 <div class="form-group">
     <label class="control-label col-md-3 col-sm-3 col-xs-12">Date</label>
     <div class="col-md-3 col-sm-4 col-xs-4">
-        <input type="text" disabled="disabled" placeholder="eg.2075-04-22" id="nepaliDate3" class="nepali-calendar form-control" value="${stockInstance?.date}"/>
-        <g:hiddenField name="date" class="form-control" id="nepaliDateReal"/>
+        <input name="date" type="text" placeholder="eg.2075-04-22" id="nepaliDate3" class="nepali-calendar form-control" value="${stockInstance?.date}"/>
     </div>
 </div>
 <script>
@@ -48,3 +47,79 @@
     }
 
 </style>
+<script>
+    $(document).ready(function() {
+        $('#stock_form').bootstrapValidator({
+            // To use feedback icons, ensure that you use Bootstrap v3.1.0 or later
+            feedbackIcons: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+                itemId: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Please choose item'
+                        }
+
+                    }
+                },
+                weight: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Please supply weight'
+                        }
+
+                    }
+                },
+                unitId: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Please supply unit'
+                        }
+
+                    }
+                },
+                quantityNumber: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Please supply number of quantity'
+                        }
+
+                    }
+                },
+                date: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Please supply date'
+                        }
+
+                    }
+                }
+
+
+            }
+        })
+            .on('success.form.bv', function(e) {
+                $('#success_message').slideDown({ opacity: "show" }, "slow") // Do something ...
+                $('#item_form').data('bootstrapValidator').resetForm();
+
+                // Prevent form submission
+                e.preventDefault();
+
+                // Get the form instance
+                var $form = $(e.target);
+
+                // Get the BootstrapValidator instance
+                var bv = $form.data('bootstrapValidator');
+
+                // Use Ajax to submit form data
+                $.post($form.attr('action'), $form.serialize(), function(result) {
+                    console.log(result);
+                }, 'json');
+            });
+    });
+
+
+</script>

@@ -19,6 +19,8 @@
             </ul>
             <div class="clearfix"></div>
         </div>
+        <div class="col-sm-12" style="color: #26B99A">${flash.message}</div>
+
         <div class="x_content">
             <br />
             <form class="form-horizontal form-label-left">
