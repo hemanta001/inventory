@@ -1,16 +1,28 @@
 import grails.transaction.Transactional
 import groovy.sql.Sql
 
+import java.util.regex.Matcher
+import java.util.regex.Pattern
+
 
 @Transactional
 class MethodsService {
+    private static Pattern dateFrmtPtrn = Pattern.compile("((?:19|20)\\d\\d)-(0?[1-9]|1[012])-([12][0-9]|3[01]|0?[1-9])")
     def dataSource
-
+def renameTableName(String previousTableName,presentTableName){
+    def sql = new Sql(dataSource)
+    // the sql script that creates a table
+    // execute the create table script
+    def renameTableName="ALTER TABLE "+previousTableName+ " RENAME TO "+presentTableName
+    sql.execute(renameTableName)
+}
     def saveMaterial(Map params) {
         if (params.identityMaterialName) {
             def material = Material.findByDelFlagAndIdentityMaterialName(false, params.identityMaterialName)
+            def previousTableName=material.identityMaterialName
             material.materialName = params.materialName
             material.identityMaterialName = convertToOriginalUrl(material.materialName)
+            renameTableName(previousTableName,material.identityMaterialName)
             material.save(flush: true)
             return material.identityMaterialName
         } else {
@@ -57,7 +69,7 @@ class MethodsService {
         def material = Material.findByDelFlagAndIdentityMaterialName(false, identityMaterialName)
         material.delFlag = true
         material.save(flush: true)
-        deleteTable(material.identityMaterialName)
+//        deleteTable(material.identityMaterialName)
     }
 
     def listOfMaterials() {
@@ -352,6 +364,34 @@ class MethodsService {
 
         }
     }
+def checkInteger(Map params){
+    def isInteger=false
+    def quantityNumber=params.quantityNumber
+    try{
+    Integer.parseInt(quantityNumber)
+        isInteger=true
+    }
+    catch (Exception e){
 
-
+    }
+    return isInteger
 }
+    def checkFloat(Map params){
+        def isFloat=false
+        def string=params.weight
+        if (string.matches("[-+]?[0-9]*\\.?[0-9]+")) { // You can use the `\\d` instead of `0-9` too!
+            isFloat=true
+        }
+        return isFloat
+    }
+    def checkDate(Map params){
+        def dateToValidate=params.date
+        def isValid=false
+        Matcher mtch = dateFrmtPtrn.matcher(dateToValidate)
+if(mtch.matches()){
+    isValid=true
+}
+        return isValid
+     }
+    }
+

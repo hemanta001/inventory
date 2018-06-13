@@ -34,7 +34,6 @@
                 <g:render template="form"></g:render>
                 <div class="form-group">
                     <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
-                        <button type="reset" class="btn btn-primary">Reset</button>
                         <g:submitButton name="update" value="Update" class="btn btn-success" onclick="valueAdd();">Update</g:submitButton>
                     </div>
                 </div>
@@ -320,7 +319,7 @@
 
             %{--<div class="ln_solid"></div>--}%
 
-            </g:form>
+            </form>
         </div>
     </div>
 </div>

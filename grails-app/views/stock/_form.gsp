@@ -69,7 +69,21 @@
                     validators: {
                         notEmpty: {
                             message: 'Please supply weight'
+                        },
+                        remote: {
+                            url: "${createLink(controller:'material', action:'checkFloat')}",
+                            // Send { username: 'its value', email: 'its value' } to the back-end
+                            data: function(validator, $field, value) {
+                                return {
+                                    weight: validator.getFieldElements('weight').val()
+
+                                };
+
+                            },
+                            message: 'invalid weight',
+                            type: 'POST'
                         }
+
 
                     }
                 },
@@ -85,6 +99,19 @@
                     validators: {
                         notEmpty: {
                             message: 'Please supply number of quantity'
+                        },
+                        remote: {
+                            url: "${createLink(controller:'material', action:'checkInteger')}",
+                            // Send { username: 'its value', email: 'its value' } to the back-end
+                            data: function(validator, $field, value) {
+                                return {
+                                    quantityNumber: validator.getFieldElements('quantityNumber').val()
+
+                                };
+
+                            },
+                            message: 'invalid quanity number',
+                            type: 'POST'
                         }
 
                     }
@@ -93,7 +120,21 @@
                     validators: {
                         notEmpty: {
                             message: 'Please supply date'
+                        },
+                        remote: {
+                            url: "${createLink(controller:'material', action:'checkDate')}",
+                            // Send { username: 'its value', email: 'its value' } to the back-end
+                            data: function(validator, $field, value) {
+                                return {
+                                    date: validator.getFieldElements('date').val()
+
+                                };
+
+                            },
+                            message: 'invalid date format',
+                            type: 'POST'
                         }
+
 
                     }
                 }

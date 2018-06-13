@@ -23,7 +23,6 @@
                 <g:render template="form"></g:render>
                 <div class="form-group">
                     <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
-                        <button type="reset" class="btn btn-primary">Reset</button>
                         <g:submitButton name="save" value="Submit" class="btn btn-success">Submit</g:submitButton>
                     </div>
                 </div>
@@ -332,7 +331,7 @@
                                 };
 
                             },
-                            message: 'The material is already in use',
+                            message: 'The unit is already in use',
                             type: 'POST'
                         }
 

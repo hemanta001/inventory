@@ -27,15 +27,71 @@
         </div>
         <div class="x_content">
             <br />
-            <g:form action="save" controller="unit" class="form-horizontal form-label-left">
+            <form action="/unit/save" class="form-horizontal form-label-left" id="unit_form">
                 <g:hiddenField name="identityUnitName" value="${unit?.identityUnitName}"></g:hiddenField>
                 <g:render template="form"></g:render>
                 <div class="form-group">
                     <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
-                        <button type="reset" class="btn btn-primary">Reset</button>
                         <g:submitButton name="update" value="Update" class="btn btn-success">Update</g:submitButton>
                     </div>
                 </div>
+                <script>
+                    $(document).ready(function() {
+                        $('#unit_form').bootstrapValidator({
+                            // To use feedback icons, ensure that you use Bootstrap v3.1.0 or later
+                            feedbackIcons: {
+                                valid: 'glyphicon glyphicon-ok',
+                                invalid: 'glyphicon glyphicon-remove',
+                                validating: 'glyphicon glyphicon-refresh'
+                            },
+                            fields: {
+                                unitName: {
+                                    validators: {
+                                        notEmpty: {
+                                            message: 'Please supply item'
+                                        },
+                                        remote: {
+                                            url: "${createLink(controller:'unit', action:'checkUnit')}",
+                                            // Send { username: 'its value', email: 'its value' } to the back-end
+                                            data: function(validator, $field, value) {
+                                                return {
+                                                    unitName: validator.getFieldElements('unitName').val()
+
+                                                };
+
+                                            },
+                                            message: 'The unit is identical to previous one or already in use',
+                                            type: 'POST'
+                                        }
+
+                                    }
+                                }
+
+
+                            }
+                        })
+                            .on('success.form.bv', function(e) {
+                                $('#success_message').slideDown({ opacity: "show" }, "slow") // Do something ...
+                                $('#unit_form').data('bootstrapValidator').resetForm();
+
+                                // Prevent form submission
+                                e.preventDefault();
+
+                                // Get the form instance
+                                var $form = $(e.target);
+
+                                // Get the BootstrapValidator instance
+                                var bv = $form.data('bootstrapValidator');
+
+                                // Use Ajax to submit form data
+                                $.post($form.attr('action'), $form.serialize(), function(result) {
+                                    console.log(result);
+                                }, 'json');
+                            });
+                    });
+
+
+                </script>
 
             %{--<div class="form-group">--}%
             %{--<label class="control-label col-md-3 col-sm-3 col-xs-12">Disabled Input </label>--}%
@@ -312,7 +368,7 @@
 
             %{--<div class="ln_solid"></div>--}%
 
-            </g:form>
+            </form>
         </div>
     </div>
 </div>

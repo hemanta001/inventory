@@ -14,6 +14,46 @@ class MaterialController {
 
         }
     }
+    def checkDate(){
+        try{
+            def isAvailable=methodsService.checkDate(params)
+            render(contentType: 'text/json') {
+                [
+                        "valid": isAvailable,
+                ]
+            }
+        }
+        catch (Exception e){
+
+        }
+    }
+
+    def checkInteger(){
+        try{
+            def isAvailable=methodsService.checkInteger(params)
+            render(contentType: 'text/json') {
+                [
+                        "valid": isAvailable,
+                ]
+            }
+        }
+        catch (Exception e){
+
+        }
+    }
+    def checkFloat(){
+        try{
+            def isAvailable=methodsService.checkFloat(params)
+            render(contentType: 'text/json') {
+                [
+                        "valid": isAvailable,
+                ]
+            }
+        }
+        catch (Exception e){
+
+        }
+    }
 def table(){
 
 }
