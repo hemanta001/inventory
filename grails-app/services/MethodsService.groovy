@@ -1,6 +1,11 @@
 import grails.transaction.Transactional
 import groovy.sql.Sql
 
+import javax.crypto.SecretKeyFactory
+import javax.crypto.spec.PBEKeySpec
+import java.security.NoSuchAlgorithmException
+import java.security.SecureRandom
+import java.security.spec.InvalidKeySpecException
 import java.util.regex.Matcher
 import java.util.regex.Pattern
 
@@ -364,6 +369,35 @@ def renameTableName(String previousTableName,presentTableName){
 
         }
     }
+    def checkEmail(Map params){
+        try {
+            def isAvailable = false
+            def userInstance = User.findByEmailAndDelFlag(params.email,false)
+            if (!userInstance) {
+                isAvailable = true
+
+            }
+            return isAvailable
+        }
+        catch (Exception e){
+
+        }
+    }
+
+    def checkUserName(Map params){
+        try {
+            def isAvailable = false
+            def userInstance = User.findByUserNameAndDelFlag(params.userName,false)
+            if (!userInstance) {
+                isAvailable = true
+
+            }
+            return isAvailable
+        }
+        catch (Exception e){
+
+        }
+    }
 def checkInteger(Map params){
     def isInteger=false
     def quantityNumber=params.quantityNumber
@@ -384,14 +418,114 @@ def checkInteger(Map params){
         }
         return isFloat
     }
-    def checkDate(Map params){
-        def dateToValidate=params.date
-        def isValid=false
-        Matcher mtch = dateFrmtPtrn.matcher(dateToValidate)
-if(mtch.matches()){
-    isValid=true
+    def saveUser(Map params){
+        User userInstance=null
+if(params.userNameId){
+    userInstance=User.findByUserName(params.userNameId)
+    userInstance.firstName=params.firstName
+    userInstance.lastName=params.lastName
+    if(params.password){
+    userInstance.password=encryptedPassword(params.password)
+    }
+    userInstance.contactNumber=params.contactNumber
+    userInstance.role=params.role
 }
-        return isValid
-     }
+        else{
+    userInstance=new User()
+    userInstance.firstName=params.firstName
+    userInstance.lastName=params.lastName
+    userInstance.email=params.email
+    userInstance.userName=params.userName
+    userInstance.password=encryptedPassword(params.password)
+    userInstance.contactNumber=params.contactNumber
+    userInstance.role=params.role
+    userInstance.delFlag=false
+}
+        return userInstance
+    }
+    def showUser(Map params){
+        def userInstance=User.findByUserName(params.userName)
+return userInstance
+    }
+    def listOfUser(){
+def userList=User.findAllByDelFlag(false)
+        return userList
+    }
+    def deleteUser(Map params){
+        def userInstance=User.findByUserName(params.userName)
+ userInstance.delFlag=true
+        userInstance.save(flush: true)
+    }
+    def encryptedPassword(String password) throws NoSuchAlgorithmException, InvalidKeySpecException {
+        String originalPassword = password;
+        String generatedSecuredPasswordHash = generateStorngPasswordHash(originalPassword);
+        return generatedSecuredPasswordHash
+    }
+
+    private static String generateStorngPasswordHash(String password) throws NoSuchAlgorithmException, InvalidKeySpecException {
+        int iterations = 1000;
+        char[] chars = password.toCharArray();
+        byte[] salt = getSalt();
+
+        PBEKeySpec spec = new PBEKeySpec(chars, salt, iterations, 64 * 8);
+        SecretKeyFactory skf = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
+        byte[] hash = skf.generateSecret(spec).getEncoded();
+        return iterations + ":" + toHex(salt) + ":" + toHex(hash);
+    }
+
+    private static byte[] getSalt() throws NoSuchAlgorithmException {
+        SecureRandom sr = SecureRandom.getInstance("SHA1PRNG");
+        byte[] salt = new byte[16];
+        sr.nextBytes(salt);
+        return salt;
+    }
+
+    private static String toHex(byte[] array) throws NoSuchAlgorithmException {
+        BigInteger bi = new BigInteger(1, array);
+        String hex = bi.toString(16);
+        int paddingLength = (array.length * 2) - hex.length();
+        if (paddingLength > 0) {
+            return String.format("%0" + paddingLength + "d", 0) + hex;
+        } else {
+            return hex;
+        }
+
+
+    }
+    def decryptPassword(String inputPassword,String encryptedPassword) throws NoSuchAlgorithmException, InvalidKeySpecException{
+        String  originalPassword = inputPassword;
+        boolean matched = validatePassword(originalPassword, encryptedPassword);
+        return matched
+
+
+
+    }
+    private static boolean validatePassword(String originalPassword, String storedPassword) throws NoSuchAlgorithmException, InvalidKeySpecException
+    {
+        String[] parts = storedPassword.split(":");
+        int iterations = Integer.parseInt(parts[0]);
+        byte[] salt = fromHex(parts[1]);
+        byte[] hash = fromHex(parts[2]);
+
+        PBEKeySpec spec = new PBEKeySpec(originalPassword.toCharArray(), salt, iterations, hash.length * 8);
+        SecretKeyFactory skf = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
+        byte[] testHash = skf.generateSecret(spec).getEncoded();
+
+        int diff = hash.length ^ testHash.length;
+        for(int i = 0; i < hash.length && i < testHash.length; i++)
+        {
+            diff |= hash[i] ^ testHash[i];
+        }
+        return diff == 0;
+    }
+    private static byte[] fromHex(String hex) throws NoSuchAlgorithmException
+    {
+        byte[] bytes = new byte[hex.length() / 2];
+        for(int i = 0; i<bytes.length ;i++)
+        {
+            bytes[i] = (byte)Integer.parseInt(hex.substring(2 * i, 2 * i + 2), 16);
+        }
+        return bytes;
+    }
     }
 

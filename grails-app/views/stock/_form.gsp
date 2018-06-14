@@ -115,28 +115,6 @@
                         }
 
                     }
-                },
-                date: {
-                    validators: {
-                        notEmpty: {
-                            message: 'Please supply date'
-                        },
-                        remote: {
-                            url: "${createLink(controller:'material', action:'checkDate')}",
-                            // Send { username: 'its value', email: 'its value' } to the back-end
-                            data: function(validator, $field, value) {
-                                return {
-                                    date: validator.getFieldElements('date').val()
-
-                                };
-
-                            },
-                            message: 'invalid date format',
-                            type: 'POST'
-                        }
-
-
-                    }
                 }
 
 

@@ -14,19 +14,6 @@ class MaterialController {
 
         }
     }
-    def checkDate(){
-        try{
-            def isAvailable=methodsService.checkDate(params)
-            render(contentType: 'text/json') {
-                [
-                        "valid": isAvailable,
-                ]
-            }
-        }
-        catch (Exception e){
-
-        }
-    }
 
     def checkInteger(){
         try{
@@ -82,6 +69,7 @@ def table(){
     }
     def delete(){
         methodsService.deleteMaterial(params.identityMaterialName)
+        flash.message="successfully deleted"
         redirect(action: "list")
     }
     def create(){

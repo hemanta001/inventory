@@ -41,6 +41,7 @@ class ItemController {
     }
     def delete(){
         methodsService.deleteItem(params.identityItemName)
+        flash.message="successfully deleted"
         redirect(action: "list")
     }
 

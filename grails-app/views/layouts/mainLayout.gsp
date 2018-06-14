@@ -76,6 +76,16 @@
                             </li>
                             <li><a><i class="fa fa-edit"></i> SetUp <span class="fa fa-chevron-down"></span></a>
                                 <ul class="nav child_menu">
+                                    <li><a>User<span class="fa fa-chevron-down"></span></a>
+                                        <ul class="nav child_menu">
+                                            <li><g:link action="create" controller="user">Add</g:link>
+                                            </li>
+                                            <li><g:link action="list" controller="user">List</g:link>
+                                            </li>
+
+                                        </ul>
+
+                                    </li>
                                     <li><a>Material<span class="fa fa-chevron-down"></span></a>
                                         <ul class="nav child_menu">
                                             <li><g:link action="create" controller="material">Add</g:link>

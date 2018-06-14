@@ -41,6 +41,7 @@ class UnitController {
     }
     def delete(){
         methodsService.deleteUnit(params.identityUnitName)
+        flash.message="successfully deleted"
         redirect(action: "list")
     }
 

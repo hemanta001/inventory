@@ -78,11 +78,11 @@ def totalStockIn=0,totalStockInWeight=0,totalStockOut=0,totalStockOutWeight=0,to
                             <td>Total</td>
                             <td></td>
                             <td>${totalStockIn}</td>
-                            <td>${totalStockInWeight}</td>
+                            <td>${totalStockInWeight+" "+"mg"}</td>
                             <td>${totalStockOut}</td>
-                            <td>${totalStockOutWeight}</td>
+                            <td>${totalStockOutWeight+" "+"mg"}</td>
                             <td>${totalRemainingStock}</td>
-                            <td>${totalRemainingStockWeight}</td>
+                            <td>${totalRemainingStockWeight+" "+"mg"}</td>
 
                         </tr>
                         </tbody>
@@ -94,12 +94,5 @@ def totalStockIn=0,totalStockInWeight=0,totalStockOut=0,totalStockOutWeight=0,to
         </div>
     </div>
 </div>
-<!-- /page content -->
-
-<!-- footer content -->
-<!-- /footer content -->
-
-<!-- jQuery -->
-
 </body>
 </html>
