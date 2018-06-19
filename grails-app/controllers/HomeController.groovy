@@ -12,9 +12,13 @@ class HomeController extends BaseController{
 
     }
     def updatePassword(){
+        try{
         methodsService.updatePassword(session.adminUser,params)
         flash.message="successfully updated your password"
-        redirect(action: "profile")
+        redirect(action: "profile")}
+        catch (Exception e){
+            render(view: "/home/error500")
+        }
     }
     def checkOldPassword(){
         try{
@@ -54,9 +58,16 @@ class HomeController extends BaseController{
         }
     }
     def profile(){
-        [userInstance:session.adminUser]
+        try {
+            [userInstance: session.adminUser]
+        }
+        catch (Exception e){
+            render(view: "/home/error500")
+
+        }
     }
     def update(){
+        try{
        def userInstance=methodsService.updateUser(session.adminUser,params)
         if(userInstance.profileImageName) {
             userInstance.profileImageName = editProfileImage(userInstance.profileImageName)
@@ -69,9 +80,18 @@ class HomeController extends BaseController{
         flash.message="successfully updated your profile"
         redirect(action: "profile")
     }
+        catch (Exception e){
+            render(view: "/home/error500")
+
+        }
+    }
     def edit(){
+        try{
         def userInstance=session.adminUser
-[userInstance:userInstance]
+[userInstance:userInstance]}
+        catch (Exception e){
+            render(view: "/home/error500")
+        }
     }
     def editProfileImage(String imageNameOld){
         def mp = (MultipartHttpServletRequest) request
