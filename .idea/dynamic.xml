@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DynamicElementsStorage">
+    <option name="containingClasses">
+      <map>
+        <entry key="javax.servlet.http.HttpSession">
+          <value>
+            <DClassElement>
+              <option name="name" value="javax.servlet.http.HttpSession" />
+              <option name="myName" value="javax.servlet.http.HttpSession" />
+              <option name="myProperties">
+                <set>
+                  <DPropertyElement>
+                    <option name="name" value="adminUser" />
+                    <option name="static" value="false" />
+                    <option name="type" value="User" />
+                    <option name="myType" value="User" />
+                    <option name="myStatic" value="false" />
+                    <option name="myName" value="adminUser" />
+                  </DPropertyElement>
+                </set>
+              </option>
+            </DClassElement>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>

@@ -1,6 +1,7 @@
 
 
-class StockController {
+class StockController extends BaseController{
+    static allowedMethods = [save: 'POST']
     def methodsService
     def remainingStockList(){
         def remainingStockList=methodsService.remainingStockList(params)
@@ -38,7 +39,6 @@ redirect(action: "show",params: [identityMaterialName: totalArray[1],stock: tota
         [stockList:stockList,itemInstance:Item.findByDelFlagAndIdentityItemName(false,params.identityItemName),materialInstance:Material.findByDelFlagAndIdentityMaterialName(false,params.identityMaterialName),stockType:params.stockType]
     }
     def delete(){
-
         methodsService.deleteStock(params)
         flash.message="successfully deleted"
         redirect(action: "list",params: [stockType:params.stockType,identityMaterialName:params.identityMaterialName,identityItemName:params.identityItemName])

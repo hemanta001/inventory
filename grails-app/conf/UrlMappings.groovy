@@ -7,9 +7,11 @@ class UrlMappings {
             }
         }
 
-        "/"(view:"/index")
-        "/"(action: "home",controller: "home")
-
-        "500"(view:'/error')
+//        "/"(view:"/index")
+        "/"(action: "loginForm",controller: "login")
+        "500"(view: "/home/error500")
+        "404"(view:"/home/error404")
+        "405"(view:"/home/error403")
+//        "500"(view:'/error')
 	}
 }

@@ -1,4 +1,5 @@
-class UnitController {
+class UnitController extends BaseController{
+    static allowedMethods = [checkUnit: 'POST',save: 'POST']
     def methodsService
     def checkUnit(){
         try{

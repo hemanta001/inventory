@@ -443,6 +443,15 @@ if(params.userNameId){
 }
         return userInstance
     }
+    def updateUser(User userInstance,Map params){
+        userInstance.firstName=params.firstName
+        userInstance.lastName=params.lastName
+        if(params.password){
+            userInstance.password=encryptedPassword(params.password)
+        }
+        userInstance.contactNumber=params.contactNumber
+        return userInstance
+    }
     def showUser(Map params){
         def userInstance=User.findByUserName(params.userName)
 return userInstance
@@ -453,8 +462,7 @@ def userList=User.findAllByDelFlag(false)
     }
     def deleteUser(Map params){
         def userInstance=User.findByUserName(params.userName)
- userInstance.delFlag=true
-        userInstance.save(flush: true)
+ userInstance.delete(flush: true)
     }
     def encryptedPassword(String password) throws NoSuchAlgorithmException, InvalidKeySpecException {
         String originalPassword = password;
@@ -496,9 +504,6 @@ def userList=User.findAllByDelFlag(false)
         String  originalPassword = inputPassword;
         boolean matched = validatePassword(originalPassword, encryptedPassword);
         return matched
-
-
-
     }
     private static boolean validatePassword(String originalPassword, String storedPassword) throws NoSuchAlgorithmException, InvalidKeySpecException
     {
@@ -526,6 +531,10 @@ def userList=User.findAllByDelFlag(false)
             bytes[i] = (byte)Integer.parseInt(hex.substring(2 * i, 2 * i + 2), 16);
         }
         return bytes;
+    }
+    def updatePassword(User userInstance,Map params){
+        userInstance.password=encryptedPassword(params.newPassword)
+        userInstance.save(flush: true)
     }
     }
 

@@ -9,8 +9,7 @@
 <div class="col-md-12 col-xs-12">
     <div class="x_panel">
         <div class="x_title">
-            <h2>User show<g:link action="create" controller="user"  class="btn btn-success btn-xs">Add</g:link>
-                <g:link action="list" controller="user" class="btn btn-success btn-xs">List</g:link></h2>
+            <h2>Profile show</h2>
             <ul class="nav navbar-right panel_toolbox">
                 <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                 </li>
@@ -19,6 +18,7 @@
             </ul>
             <div class="clearfix"></div>
         </div>
+
         <div class="col-sm-12" style="color: #26B99A">${flash.message}</div>
         <div class="x_content">
             <br />
@@ -73,12 +73,9 @@
 
                 <div class="form-group">
                     <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
-                        <g:link action="delete" controller="user" params="[userName:userInstance?.userName]" class="btn btn-danger btn-xs">Delete</g:link>
-                        <g:link action="edit" controller="user" params="[userName:userInstance?.userName]" class="btn btn-success btn-xs">Edit</g:link>
+                        <g:link action="edit" controller="home" class="btn btn-success btn-xs">Edit</g:link>
                     </div>
                 </div>
-
-
             </form>
         </div>
     </div>

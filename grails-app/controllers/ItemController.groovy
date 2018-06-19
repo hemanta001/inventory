@@ -1,4 +1,5 @@
-class ItemController {
+class ItemController extends BaseController{
+    static allowedMethods = [checkItem: "POST",save: 'POST']
     def methodsService
     def checkItem(){
         try{

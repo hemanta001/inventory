@@ -7,7 +7,8 @@ import java.awt.image.BufferedImage
 import java.util.regex.Matcher
 import java.util.regex.Pattern
 
-class UserController {
+class UserController extends BaseRoleController{
+    static allowedMethods = [checkUserName: 'POST',checkEmail: 'POST',save: 'POST',editProfileImage: 'POST',uploadProfileImage: 'POST']
     final static Pattern PATTERN = Pattern.compile("(.*?)(?:\\((\\d+)\\))?(\\.[^.]*)?");
 
     def methodsService
@@ -46,7 +47,6 @@ class UserController {
     def save(){
         def userInstance=methodsService.saveUser(params)
         if(params.userNameId){
-            if(params.profileImageName) {
 if(userInstance.profileImageName) {
     userInstance.profileImageName = editProfileImage(userInstance.profileImageName)
 }
@@ -54,17 +54,13 @@ if(userInstance.profileImageName) {
     userInstance.profileImageName=uploadProfileImage()
     
 }
-            }
             userInstance.save(flush: true)
             flash.message="successfully updated"
         }
         else{
-            if(params.profileImageName){
             userInstance.profileImageName=uploadProfileImage()
-            }
             userInstance.save(flush:true)
             flash.message="successfully added"
-
         }
         redirect(action: "show",params: [ userName: userInstance.userName])
     }
@@ -107,6 +103,7 @@ if(userInstance.profileImageName) {
     def uploadProfileImage(){
         def mp = (MultipartHttpServletRequest) request
         CommonsMultipartFile file = (CommonsMultipartFile) mp.getFile("profileImageName")
+        if(file.size>0){
         def fileName = file.originalFilename
         def homeDir = new File(System.getProperty("user.home"))
         File theDir = new File(homeDir, "yarsaa");
@@ -131,7 +128,7 @@ if(userInstance.profileImageName) {
         }
         File fileDest = new File(homeDir, "yarsaa/${fileName}")
         file.transferTo(fileDest)
-        return fileName
+        return fileName}
     }
     def show(){
         def userInstance= methodsService.showUser(params)

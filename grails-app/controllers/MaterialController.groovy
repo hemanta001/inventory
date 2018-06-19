@@ -1,5 +1,6 @@
 
-class MaterialController {
+class MaterialController extends BaseController{
+    static allowedMethods = [checkMaterial: 'POST',checkInteger: 'POST',checkFloat: 'POST',save: 'POST']
     def methodsService
     def checkMaterial(){
         try{

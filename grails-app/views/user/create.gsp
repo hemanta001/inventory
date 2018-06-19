@@ -154,7 +154,6 @@
                                         file: {
                                             extension: 'jpeg,png,jpg,gif',
                                             type: 'image/jpeg,image/png,image/jpg,image/gif',
-                                            maxSize: 200 * 200,
                                             message: 'The selected file is not valid'
                                         }
                                     }

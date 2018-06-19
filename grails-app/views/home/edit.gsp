@@ -16,7 +16,7 @@
 <div class="col-md-12 col-xs-12">
     <div class="x_panel">
         <div class="x_title">
-            <h2>User edit<g:link action="create" controller="user"  class="btn btn-success btn-xs">Add</g:link><g:link action="list" controller="user"  class="btn btn-success btn-xs">List</g:link></h2>
+            <h2>Profile edit</h2>
             <ul class="nav navbar-right panel_toolbox">
                 <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                 </li>
@@ -27,8 +27,7 @@
         </div>
         <div class="x_content">
             <br />
-            <form action="/user/save"  method="post" class="form-horizontal form-label-left" enctype="multipart/form-data" id="user_form">
-                <g:hiddenField name="userNameId" value="${userInstance?.userName}"></g:hiddenField>
+            <form action="/home/update"  method="post" class="form-horizontal form-label-left" enctype="multipart/form-data" id="user_form">
                 <g:render template="form1"></g:render>
                 <div class="form-group">
                     <label class="control-label col-md-3 col-sm-3 col-xs-12">Email</label>
@@ -87,21 +86,25 @@
                                 password: {
                                     validators: {
 
-                                        identical: {
-                                            field: 'confirmPassword',
-                                            message: 'Confirm your password below - type same password please'
-                                        }
-                                    }
-                                },
-                                confirmPassword: {
-                                    validators: {
+                                        notEmpty: {
+                                            message: 'Please supply your password'
+                                        },
+                                        remote: {
+                                            url: "${createLink(controller:'home', action:'checkPassword')}",
+                                            // Send { username: 'its value', email: 'its value' } to the back-end
+                                            data: function (validator, $field, value) {
+                                                return {
+                                                    password: validator.getFieldElements('password').val()
+                                                };
 
-                                        identical: {
-                                            field: 'password',
-                                            message: 'The password and its confirm are not the same'
+                                            },
+                                            message: 'Please enter correct password',
+                                            type: 'POST'
                                         }
+
                                     }
                                 },
+
                                 profileImageName: {
                                     validators: {
                                         file: {
