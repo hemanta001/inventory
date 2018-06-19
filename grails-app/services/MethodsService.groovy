@@ -24,12 +24,13 @@ def renameTableName(String previousTableName,presentTableName){
     def saveMaterial(Map params) {
         if (params.identityMaterialName) {
             def material = Material.findByDelFlagAndIdentityMaterialName(false, params.identityMaterialName)
+            if(material){
             def previousTableName=material.identityMaterialName
             material.materialName = params.materialName
             material.identityMaterialName = convertToOriginalUrl(material.materialName)
             renameTableName(previousTableName,material.identityMaterialName)
-            material.save(flush: true)
-            return material.identityMaterialName
+            material.save(flush: true)}
+            return material
         } else {
             def material = new Material()
             material.materialName = params.materialName
@@ -37,7 +38,7 @@ def renameTableName(String previousTableName,presentTableName){
             material.delFlag = false
             material.save(flush: true)
             createTable(material.identityMaterialName)
-            return material.identityMaterialName
+            return material
         }
     }
 
@@ -72,8 +73,10 @@ def renameTableName(String previousTableName,presentTableName){
 
     def deleteMaterial(String identityMaterialName) {
         def material = Material.findByDelFlagAndIdentityMaterialName(false, identityMaterialName)
+        if(material){
         material.delFlag = true
-        material.save(flush: true)
+        material.save(flush: true)}
+        return material
 //        deleteTable(material.identityMaterialName)
     }
 
@@ -85,18 +88,18 @@ def renameTableName(String previousTableName,presentTableName){
     def saveItem(Map params) {
         if (params.identityItemName) {
             def item = Item.findByDelFlagAndIdentityItemName(false, params.identityItemName)
+            if(item){
             item.itemName = params.itemName
             item.identityItemName = convertToOriginalUrl(item.itemName)
-
-            item.save(flush: true)
-            return item.identityItemName
+            item.save(flush: true)}
+            return item
         } else {
             def item = new Item()
             item.itemName = params.itemName
             item.identityItemName = convertToOriginalUrl(params.itemName)
             item.delFlag = false
             item.save(flush: true)
-            return item.identityItemName
+            return item
         }
     }
 
@@ -107,8 +110,10 @@ def renameTableName(String previousTableName,presentTableName){
 
     def deleteItem(String identityItemName) {
         def item = Item.findByDelFlagAndIdentityItemName(false, identityItemName)
+        if(item){
         item.delFlag = true
-        item.save(flush: true)
+        item.save(flush: true)}
+        return item
     }
 
     def listOfItem() {
@@ -119,17 +124,18 @@ def renameTableName(String previousTableName,presentTableName){
     def saveUnit(Map params) {
         if (params.identityUnitName) {
             def unit = Unit.findByDelFlagAndIdentityUnitName(false, params.identityUnitName)
+            if(unit){
             unit.unitName = params.unitName
             unit.identityUnitName = convertToOriginalUrl(params.unitName)
-            unit.save(flush: true)
-            return unit.identityUnitName
+            unit.save(flush: true)}
+            return unit
         } else {
             def unit = new Unit()
             unit.unitName = params.unitName
             unit.identityUnitName = convertToOriginalUrl(params.unitName)
             unit.delFlag = false
             unit.save(flush: true)
-            return unit.identityUnitName
+            return unit
         }
     }
 
@@ -140,8 +146,11 @@ def renameTableName(String previousTableName,presentTableName){
 
     def deleteUnit(String identityUnitName) {
         def unit = Unit.findByDelFlagAndIdentityUnitName(false, identityUnitName)
+        if(unit){
         unit.delFlag = true
         unit.save(flush: true)
+        }
+        return unit
     }
 
     def listOfUnit() {
@@ -190,31 +199,36 @@ def renameTableName(String previousTableName,presentTableName){
             array = [stock, params.identityMaterialName]
             return array
         } else {
-            id = params.id as Long
+            id = params.id
+            Stock stock = showStock(params.identityMaterialName, id)
+
+            if(stock){
             createTableScript = "UPDATE " + params.identityMaterialName + " SET item_id = (SELECT id from item WHERE id=" + params.itemId + " ),unit_id = (SELECT id from unit WHERE id=" + params.unitId + " ), weight='"+ params.weight +"', quantity_number='" + params.quantityNumber + "', date='" + params.date + "'  WHERE id=" + id
             // execute the create table script
             sql.execute(createTableScript)
-            Stock stock = showStock(params.identityMaterialName, id)
             // close connection
             sql.close()
             array = [stock, params.identityMaterialName]
+        }
             return array
+
         }
     }
 
     def showStock(String tableName, Long id) {
         def sql = new Sql(dataSource)
-        Stock stock = new Stock()
+        Stock stock = null
         sql.eachRow('SELECT * FROM ' + tableName + ' WHERE id=' + id) { row ->
-            stock.id = row[0]
-            stock.quantityNumber = row[1]
-            stock.delFlag = row[2]
-            stock.date = row[3]
-            stock.stockType = row[4]
-            stock.weight = row[5]
-            stock.item = Item.get(row[6])
-            stock.unit = Unit.get(row[7])
-
+            if(!row[2]) {
+                stock = new Stock();
+                stock.id = row[0]
+                stock.quantityNumber = row[1]
+                stock.delFlag = row[2]
+                stock.date = row[3]
+                stock.stockType = row[4]
+                stock.weight = row[5]
+                stock.item = Item.get(row[6])
+                stock.unit = Unit.get(row[7])}
         }
         sql.close()
         return stock
@@ -245,7 +259,6 @@ def renameTableName(String previousTableName,presentTableName){
     def deleteStock(Map params) {
         def sql = new Sql(dataSource)
         def id=params.stock as long
-        print id
         String createScript = "UPDATE " + params.identityMaterialName + " SET del_flag=1  WHERE id=" + id
         sql.execute(createScript)
         sql.close()
@@ -422,6 +435,7 @@ def checkInteger(Map params){
         User userInstance=null
 if(params.userNameId){
     userInstance=User.findByUserName(params.userNameId)
+    if(userInstance){
     userInstance.firstName=params.firstName
     userInstance.lastName=params.lastName
     if(params.password){
@@ -429,7 +443,7 @@ if(params.userNameId){
     }
     userInstance.contactNumber=params.contactNumber
     userInstance.role=params.role
-}
+}}
         else{
     userInstance=new User()
     userInstance.firstName=params.firstName

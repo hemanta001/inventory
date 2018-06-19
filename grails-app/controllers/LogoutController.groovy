@@ -13,6 +13,7 @@ class LogoutController {
         }
     }
         catch (Exception e){
+            render(view: "/home/error500")
 
         }
     }

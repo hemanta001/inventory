@@ -42,15 +42,21 @@ class MaterialController extends BaseController{
 
         }
     }
-def table(){
 
-}
     def list(){
+        try{
         def materialsList=methodsService.listOfMaterials()
         [materialsList: materialsList]
     }
+        catch (Exception e){
+            render(view: "/home/error500")
+
+        }
+    }
     def save(){
-        def materialName=methodsService.saveMaterial(params)
+        try{
+        def material=methodsService.saveMaterial(params)
+        if(material){
         if(params.identityMaterialName){
             flash.message="successfully updated"
         }
@@ -58,20 +64,52 @@ def table(){
             flash.message="successfully added"
 
         }
-        redirect(action: "show",params: [ identityMaterialName: materialName])
+        redirect(action: "show",params: [ identityMaterialName: material.identityMaterialName])
+    }}
+        catch (Exception e){
+            render(view: "/home/error500")
+        }
     }
     def show(){
+        try{
         def material= methodsService.showMaterial(params.identityMaterialName)
-        [material: material]
+        if(material) {
+            [material: material]
+        }
+        else{
+            render(view: "/home/error404")
+
+        }}
+        catch (Exception e){
+            render(view: "/home/error500")
+
+        }
     }
     def edit(){
+        try{
         def material=methodsService.showMaterial(params.identityMaterialName)
-        [material: material]
+        if(material){
+        [material: material]}
+        else{
+            render(view: "/home/error404")
+
+        }}
+        catch (Exception e){
+            render(view: "/home/error500")
+        }
     }
     def delete(){
-        methodsService.deleteMaterial(params.identityMaterialName)
-        flash.message="successfully deleted"
-        redirect(action: "list")
+        try{
+        def material=methodsService.deleteMaterial(params.identityMaterialName)
+        if(material){
+        flash.message="successfully deleted"}
+        else{
+         flash.message="unable to delete already deleted material"
+        }
+        redirect(action: "list")}
+        catch (Exception e){
+            render(view: "/home/error500")
+        }
     }
     def create(){
 

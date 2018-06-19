@@ -18,7 +18,7 @@
         </div>
         <div class="x_content">
             <br />
-            <form action="/item/save" class="form-horizontal form-label-left" id="item_form">
+            <form method="post" action="/item/save" class="form-horizontal form-label-left" id="item_form">
 
                 <g:render template="form"></g:render>
                 <div class="form-group">

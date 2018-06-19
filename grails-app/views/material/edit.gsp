@@ -27,7 +27,7 @@
         </div>
         <div class="x_content">
             <br />
-            <form action="/material/save"  class="form-horizontal form-label-left" id="material_form">
+            <form method="post" action="/material/save"  class="form-horizontal form-label-left" id="material_form">
                 <g:hiddenField name="identityMaterialName" value="${material?.identityMaterialName}"></g:hiddenField>
                 <g:render template="form"></g:render>
                 <div class="form-group">

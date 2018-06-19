@@ -1,5 +1,5 @@
 class ItemController extends BaseController{
-    static allowedMethods = [checkItem: "POST",save: 'POST']
+    static allowedMethods = [checkItem: "POST",save: "POST"]
     def methodsService
     def checkItem(){
         try{
@@ -18,11 +18,17 @@ class ItemController extends BaseController{
 
     }
     def list(){
+        try{
         def itemList=methodsService.listOfItem()
-        [itemList: itemList]
+        [itemList: itemList]}
+        catch (Exception e){
+render(view: "/home/error500")
+        }
     }
     def save(){
-        def itemName=methodsService.saveItem(params)
+        try{
+        def item=methodsService.saveItem(params)
+        if(item){
         if(params.identityItemName){
         flash.message="successfully updated"
         }
@@ -30,20 +36,54 @@ class ItemController extends BaseController{
             flash.message="successfully added"
 
         }
-        redirect(action: "show",params:[identityItemName: itemName])
+        redirect(action: "show",params:[identityItemName: item.identityItemName])
+        }}
+        catch (Exception e){
+            render(view: "/home/error500")
+
+        }
     }
     def show(){
+        try{
         def item= methodsService.showItem(params.identityItemName)
-        [item: item]
+        if(item){
+        [item: item]}
+        else{
+            render(view: "/home/error404")
+        }}
+        catch (Exception e){
+            render(view: "/home/error500")
+        }
     }
     def edit(){
+        try{
         def item=methodsService.showItem(params.identityItemName)
-        [item: item]
+        if(item){
+            [item: item]}
+        else{
+            render(view: "/home/error404")
+        }}
+        catch (Exception e){
+            render(view: "/home/error500")
+
+        }
     }
     def delete(){
-        methodsService.deleteItem(params.identityItemName)
-        flash.message="successfully deleted"
+        try{
+        def item=methodsService.deleteItem(params.identityItemName)
+        if(item){
+        flash.message="successfully deleted"}
+        else{
+            flash.message="unable to delete the already deleted item"
+        }
+
         redirect(action: "list")
+    }
+        catch (Exception e){
+            render(view: "/home/error500")
+
+        }
     }
 
 }
+

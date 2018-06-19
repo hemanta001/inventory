@@ -9,7 +9,7 @@ class LoginController {
 
     }
     def login(){
-//        try{
+        try{
             def userInstance= User.findByEmailOrUserName(params.emailOrUserName,params.emailOrUserName)
             def status=false
             if (userInstance) {
@@ -25,10 +25,10 @@ class LoginController {
                 redirect(action: "loginForm")
             }
 
-//        }
-//        catch (Exception e){
-//
-//        }
+        }
+        catch (Exception e){
+            render(view: "/home/error500")
+        }
     }
 
 }

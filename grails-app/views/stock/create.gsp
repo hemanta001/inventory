@@ -18,7 +18,7 @@
         </div>
         <div class="x_content">
             <br />
-            <form action="/stock/save" class="form-horizontal form-label-left" id="stock_form">
+            <form action="/stock/save" method="post" class="form-horizontal form-label-left" id="stock_form">
 <g:hiddenField name="identityMaterialName" value="${materialInstance.identityMaterialName}"></g:hiddenField>
                 <g:hiddenField name="stockType" value="${stockType}"></g:hiddenField>
 
