@@ -8,6 +8,10 @@ class UrlMappings {
         }
 
 //        "/"(view:"/index")
+        "/edit-profile"(action: "edit",controller: "home")
+        "/edit-password"(action: "changePassword",controller: "home")
+
+        "/profile"(action: "profile",controller: "home")
         "/"(action: "loginForm",controller: "login")
         "500"(view: "/home/error500")
         "404"(view:"/home/error404")
