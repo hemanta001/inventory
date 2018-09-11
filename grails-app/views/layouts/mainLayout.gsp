@@ -56,11 +56,20 @@
                 <div class="clearfix"></div>
 
                 <!-- menu profile quick info -->
+
                 <div class="profile clearfix">
+                <g:if test="${userInstance?.profileImageName!=null}">
                     <div class="profile_pic">
                         <img src="${createLink(controller: 'user', action:'renderImage',params: [profileImageName:session?.adminUser?.profileImageName])}" class="img-circle profile_img">
 
                     </div>
+                </g:if>
+                <g:else>
+                    <div class="profile_pic">
+                        <img src="${resource(dir: 'images', file: 'blank.png')}" class="img-circle profile_img">
+
+                    </div>
+                </g:else>
                     <div class="profile_info">
                         <span>Welcome,</span>
                         <h2>${session.adminUser.firstName+" "+session.adminUser.lastName}</h2>
@@ -224,7 +233,13 @@
                     <ul class="nav navbar-nav navbar-right">
                         <li class="">
                             <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                <img src="${createLink(controller: 'user', action:'renderImage',params: [profileImageName:session?.adminUser?.profileImageName])}">${session?.adminUser.firstName+" "+session?.adminUser.lastName}
+    <g:if test="${userInstance?.profileImageName!=null}">
+                                <img src="${createLink(controller: 'user', action:'renderImage',params: [profileImageName:session?.adminUser?.profileImageName])}">
+    </g:if>
+                                <g:else>
+        <img src="${resource(dir: 'images', file: 'blank.png')}">
+                                </g:else>
+                                    ${session?.adminUser.firstName+" "+session?.adminUser.lastName}
                                 <span class=" fa fa-angle-down"></span>
                             </a>
                             <ul class="dropdown-menu dropdown-usermenu pull-right">
