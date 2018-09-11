@@ -6,7 +6,12 @@ class LoginController {
     def methodsService
 
     def loginForm() {
-
+if(session.adminUser){
+    redirect(action: "home",controller: "home")
+}
+        else{
+    render(view:"loginForm")
+}
     }
     def login(){
         try{

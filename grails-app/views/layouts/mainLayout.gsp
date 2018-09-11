@@ -58,7 +58,7 @@
                 <!-- menu profile quick info -->
 
                 <div class="profile clearfix">
-                <g:if test="${userInstance?.profileImageName!=null}">
+                <g:if test="${session?.adminUser?.profileImageName!=null}">
                     <div class="profile_pic">
                         <img src="${createLink(controller: 'user', action:'renderImage',params: [profileImageName:session?.adminUser?.profileImageName])}" class="img-circle profile_img">
 
@@ -233,7 +233,7 @@
                     <ul class="nav navbar-nav navbar-right">
                         <li class="">
                             <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-    <g:if test="${userInstance?.profileImageName!=null}">
+    <g:if test="${session?.adminUser?.profileImageName!=null}">
                                 <img src="${createLink(controller: 'user', action:'renderImage',params: [profileImageName:session?.adminUser?.profileImageName])}">
     </g:if>
                                 <g:else>
