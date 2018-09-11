@@ -19,7 +19,7 @@ environments {
     development {
         dataSource {
             dbCreate = "update" // one of 'create', 'create-drop', 'update', 'validate', ''
-            url = "jdbc:mysql://localhost/jwellery"
+            url = "jdbc:mysql://localhost:3307/jwellery"
             username="root"
             password="hem123..."
         }
