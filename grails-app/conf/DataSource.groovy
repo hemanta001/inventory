@@ -21,7 +21,7 @@ environments {
             dbCreate = "update" // one of 'create', 'create-drop', 'update', 'validate', ''
             url = "jdbc:mysql://localhost/jwellery"
             username="root"
-            password=" "
+            password="hem123..."
         }
     }
 
