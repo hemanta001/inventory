@@ -96,5 +96,7 @@ if(session.adminUser){
 //            render "book not found"
 //        }
 //    }
-
+def getNep(){
+    methodsService.getNumberOfDays()
+}
 }
